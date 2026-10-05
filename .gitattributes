@@ -169,3 +169,6 @@ Packages/packages-lock.json linguist-generated
 
 # Exceptions for .asset files such as lightning pre-baking
 LightingData.asset     binary
+
+# Exclude bundled third-party code from GitHub language stats
+Assets/TextMesh[[:space:]]Pro/** linguist-vendored
