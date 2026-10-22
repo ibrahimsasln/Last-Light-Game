@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ZombieMovement : MonoBehaviour
+public class ZombieMovement : MonoBehaviour, IEnemyMovement
 {
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpPower = 7f;
@@ -11,6 +11,7 @@ public class ZombieMovement : MonoBehaviour
     Transform playerTransform;
     Health playerHealth;
     LayerMask groundLayer;
+    float speedMultiplier = 1f;
 
     private void Awake()
     {
@@ -31,13 +32,18 @@ public class ZombieMovement : MonoBehaviour
         }
 
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
-        zombieRB.linearVelocityX = direction * speed;
+        zombieRB.linearVelocityX = direction * speed * speedMultiplier;
         transform.localScale = new Vector2(direction, 1f);
 
         if (IsGrounded() && IsWallAhead(direction))
         {
             zombieRB.linearVelocityY = jumpPower;
         }
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
     }
 
     private bool IsGrounded()

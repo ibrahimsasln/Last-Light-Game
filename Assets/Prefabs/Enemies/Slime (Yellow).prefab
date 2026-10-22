@@ -84,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 981049701
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 617764662413310538, guid: 91fc63e4edb9c1b4687ab6e9f222acf2, type: 3}
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2f7a5d118bbdcaa43a681e0f678b68b0, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -174,8 +174,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlimeMovement
   waitTime: 1.5
-  jumpForce: {x: 3, y: 6}
+  jumpForce: {x: 3.25, y: 6}
+  wallJumpMultiplier: 1.6
+  wallCheckDistance: 1.5
   groundCheckDistance: 0.7
+  groundCheckRadius: 0.25
+  maxAirTime: 3
 --- !u!95 &3765026418836381795
 Animator:
   serializedVersion: 7

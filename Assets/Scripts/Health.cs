@@ -23,6 +23,23 @@ public class Health : MonoBehaviour
         CurrentHealth = maxHealth;
     }
 
+    public void SetMaxHealth(int value)
+    {
+        maxHealth = Mathf.Max(1, value);
+        CurrentHealth = maxHealth;
+        HealthChanged?.Invoke(CurrentHealth, maxHealth);
+    }
+
+    public void Kill()
+    {
+        if (IsDead) return;
+
+        CurrentHealth = 0;
+        HealthChanged?.Invoke(CurrentHealth, maxHealth);
+        IsDead = true;
+        Died?.Invoke();
+    }
+
     public void TakeDamage(int amount, Vector2 hitFrom)
     {
         if (IsDead || IsInvulnerable) return;

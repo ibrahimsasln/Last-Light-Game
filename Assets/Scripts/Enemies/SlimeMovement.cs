@@ -1,12 +1,16 @@
 using UnityEngine;
 
-public class SlimeMovement : MonoBehaviour
+public class SlimeMovement : MonoBehaviour, IEnemyMovement
 {
     enum State { Waiting, Jumping }
 
     [SerializeField] float waitTime = 1.5f;
     [SerializeField] Vector2 jumpForce = new Vector2(3f, 6f);
+    [SerializeField] float wallJumpMultiplier = 1.6f;
+    [SerializeField] float wallCheckDistance = 1.5f;
     [SerializeField] float groundCheckDistance = 0.6f;
+    [SerializeField] float groundCheckRadius = 0.25f;
+    [SerializeField] float maxAirTime = 3f;
 
     Rigidbody2D slimeRB;
     Transform playerTransform;
@@ -15,6 +19,9 @@ public class SlimeMovement : MonoBehaviour
 
     State state = State.Waiting;
     float nextJumpTime;
+    float forceLandTime;
+    float jumpVelocityX;
+    float speedMultiplier = 1f;
 
     private void Awake()
     {
@@ -55,9 +62,12 @@ public class SlimeMovement : MonoBehaviour
 
     private void UpdateJumping()
     {
-        bool isFalling = slimeRB.linearVelocityY <= 0f;
+        slimeRB.linearVelocityX = jumpVelocityX;
 
-        if (isFalling && IsGrounded())
+        bool isFalling = slimeRB.linearVelocityY <= 0f;
+        bool isStuck = Time.time >= forceLandTime;
+
+        if ((isFalling && IsGrounded()) || isStuck)
         {
             Land();
         }
@@ -66,8 +76,13 @@ public class SlimeMovement : MonoBehaviour
     private void JumpTowardsPlayer()
     {
         float direction = Mathf.Sign(playerTransform.position.x - transform.position.x);
+        float jumpHeight = IsWallAhead(direction) ? jumpForce.y * wallJumpMultiplier : jumpForce.y;
+
+        jumpVelocityX = direction * jumpForce.x * speedMultiplier;
+
         transform.localScale = new Vector2(direction, 1f);
-        slimeRB.linearVelocity = new Vector2(direction * jumpForce.x, jumpForce.y);
+        slimeRB.linearVelocity = new Vector2(jumpVelocityX, jumpHeight);
+        forceLandTime = Time.time + maxAirTime;
 
         state = State.Jumping;
     }
@@ -75,15 +90,28 @@ public class SlimeMovement : MonoBehaviour
     private void Land()
     {
         slimeRB.linearVelocityX = 0f;
-        nextJumpTime = Time.time + waitTime;
+        nextJumpTime = Time.time + waitTime / speedMultiplier;
 
         state = State.Waiting;
     }
 
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
+    }
+
     private bool IsGrounded()
     {
-        bool hit = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, groundLayer);
+        float castDistance = groundCheckDistance - groundCheckRadius;
+        bool hit = Physics2D.CircleCast(transform.position, groundCheckRadius, Vector2.down, castDistance, groundLayer);
         Debug.DrawRay(transform.position, Vector2.down * groundCheckDistance, hit ? Color.green : Color.red);
+        return hit;
+    }
+
+    private bool IsWallAhead(float direction)
+    {
+        bool hit = Physics2D.Raycast(transform.position, Vector2.right * direction, wallCheckDistance, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.right * direction * wallCheckDistance, hit ? Color.green : Color.red);
         return hit;
     }
 }
