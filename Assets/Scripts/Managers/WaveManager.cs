@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class WaveManager : MonoBehaviour
 {
@@ -62,15 +61,6 @@ public class WaveManager : MonoBehaviour
     private void OnDisable()
     {
         playerHealth.Died -= StopWave;
-    }
-
-    private void Update()
-    {
-        // TODO: remove when the stone interaction starts waves
-        if (Keyboard.current.tKey.wasPressedThisFrame)
-        {
-            StartWave();
-        }
     }
 
     public void StartWave()
