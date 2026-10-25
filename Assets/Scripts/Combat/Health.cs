@@ -18,6 +18,8 @@ namespace Tilemania.Combat
         public event Action<Vector2> Damaged;
         public event Action Died;
 
+        public bool IsFullHealth => CurrentHealth >= maxHealth;
+
         bool IsInvulnerable => Time.time < invulnerableUntil;
 
         private void Awake()
@@ -30,6 +32,26 @@ namespace Tilemania.Combat
             maxHealth = Mathf.Max(1, value);
             CurrentHealth = maxHealth;
             HealthChanged?.Invoke(CurrentHealth, maxHealth);
+        }
+
+        public void IncreaseMaxHealth(int amount)
+        {
+            maxHealth += amount;
+            CurrentHealth += amount;
+            HealthChanged?.Invoke(CurrentHealth, maxHealth);
+        }
+
+        public void HealToFull()
+        {
+            if (IsDead) return;
+
+            CurrentHealth = maxHealth;
+            HealthChanged?.Invoke(CurrentHealth, maxHealth);
+        }
+
+        public void MakeInvulnerable(float duration)
+        {
+            invulnerableUntil = Mathf.Max(invulnerableUntil, Time.time + duration);
         }
 
         public void Kill()

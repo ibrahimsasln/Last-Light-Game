@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c47d123e584a27b49ab115f7177999, type: 3}
+  m_Name: AudioLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Audio.AudioLibrary
+  music: {fileID: 8300000, guid: 4559935c00ef8e94b846e2e03e39f0d0, type: 3}
+  musicVolume: 0.35
+  shoot: {fileID: 8300000, guid: 6f0c572d865b4664db7a460972bc4768, type: 3}
+  playerHurt: {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
+  enemyDeath: {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}
+  waveComplete: {fileID: 8300000, guid: 2c4bc183a5df5aa4baf7c4fcf236a2de, type: 3}
+  purchase: {fileID: 8300000, guid: 64795b87003c2324fa0814fbc336066c, type: 3}
+  click: {fileID: 8300000, guid: 4b294d59d2399014daa718b35c9de73b, type: 3}
+  gameOver: {fileID: 8300000, guid: c8a3fe17a6641ec48b38fb455a40a223, type: 3}

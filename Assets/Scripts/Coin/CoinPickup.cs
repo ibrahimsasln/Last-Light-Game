@@ -1,6 +1,5 @@
 using UnityEngine;
-using Tilemania.Core;
-using Tilemania.Managers;
+using Tilemania.Player;
 
 namespace Tilemania.Coin
 {
@@ -12,10 +11,10 @@ namespace Tilemania.Coin
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (wasCollected || !other.gameObject.CompareTag(Tags.Player)) return;
+            if (wasCollected || !other.gameObject.TryGetComponent(out PlayerWallet wallet)) return;
             wasCollected = true;
 
-            GameManager.Instance.AddCoins(1);
+            wallet.Add(1);
             AudioSource.PlayClipAtPoint(coinPickupSFX, transform.position);
             Destroy(gameObject);
         }

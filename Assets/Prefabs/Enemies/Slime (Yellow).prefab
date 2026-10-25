@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3765026418836381795}
   - component: {fileID: 5516322291213745754}
   - component: {fileID: 8125208552255141893}
+  - component: {fileID: 8252917472193468016}
   m_Layer: 7
   m_Name: Slime (Yellow)
   m_TagString: Enemy
@@ -230,3 +231,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 2
   invulnerabilityDuration: 0
+--- !u!114 &8252917472193468016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571904930814009249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb177a784ea20f40b67b1fc28b1e21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Combat.DamageFlash
+  flashColor: {r: 1, g: 1, b: 1, a: 0.35}
+  flashDuration: 0.08

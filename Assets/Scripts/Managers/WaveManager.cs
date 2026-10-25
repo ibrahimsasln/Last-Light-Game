@@ -30,6 +30,7 @@ namespace Tilemania.Managers
 
         public event Action<int> WaveStarted;
         public event Action<int> WaveCompleted;
+        public event Action<Enemy> EnemyKilled;
 
         private void Awake()
         {
@@ -87,6 +88,7 @@ namespace Tilemania.Managers
         {
             enemy.Died -= OnEnemyDied;
             enemiesAlive--;
+            EnemyKilled?.Invoke(enemy);
 
             if (enemiesAlive == 0 && enemiesLeftToSpawn == 0)
             {

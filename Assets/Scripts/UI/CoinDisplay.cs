@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
-using Tilemania.Managers;
+using Tilemania.Player;
 
 namespace Tilemania.UI
 {
     public class CoinDisplay : MonoBehaviour
     {
+        [SerializeField] PlayerWallet wallet;
+
         TextMeshProUGUI coinText;
 
         private void Awake()
@@ -13,18 +15,19 @@ namespace Tilemania.UI
             coinText = GetComponent<TextMeshProUGUI>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
-            GameManager.Instance.CoinsChanged += UpdateText;
-            UpdateText(GameManager.Instance.Coins);
+            wallet.CoinsChanged += UpdateText;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.CoinsChanged -= UpdateText;
-            }
+            wallet.CoinsChanged -= UpdateText;
+        }
+
+        private void Start()
+        {
+            UpdateText(wallet.Coins);
         }
 
         private void UpdateText(int coins)

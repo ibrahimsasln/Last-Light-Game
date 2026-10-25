@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f032659f68d51e4ea547b69c1f28526, type: 3}
+  m_Name: MaxHealth
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Upgrades.MaxHealthUpgrade
+  displayName: Max Health
+  description: +1 max health
+  baseCost: 15
+  costIncreasePerLevel: 10
+  maxLevel: 5
+  amount: 1

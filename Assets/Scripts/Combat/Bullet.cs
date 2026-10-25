@@ -10,10 +10,11 @@ namespace Tilemania.Combat
         int damage;
         bool hasHit;
 
-        public void Launch(float direction, int damage)
+        public void Launch(Vector2 direction, int damage)
         {
             this.damage = damage;
-            GetComponent<Rigidbody2D>().linearVelocityX = direction * bulletSpeed;
+            transform.right = direction;
+            GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
             Destroy(gameObject, bulletLifeTime);
         }
 

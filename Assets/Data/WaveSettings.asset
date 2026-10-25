@@ -19,6 +19,9 @@ MonoBehaviour:
   - prefab: {fileID: 5516322291213745754, guid: e0c885a9b642e8848b4d23d196747bc6, type: 3}
     startWave: 3
     weight: 0.3
+  - prefab: {fileID: -4491783838469230870, guid: 50109297c79646469f016a60adfc9a75, type: 3}
+    startWave: 5
+    weight: 0.2
   baseEnemyCount: 5
   enemiesPerWave: 2
   baseSpawnInterval: 2

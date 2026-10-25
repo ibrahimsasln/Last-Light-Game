@@ -1,51 +1,33 @@
 using UnityEngine;
-using Tilemania.Managers;
 
 namespace Tilemania.Interaction
 {
-    public class WaveStone : MonoBehaviour, IInteractable
+    public class WaveStone : BetweenWavesInteractable
     {
-        [SerializeField] WaveManager waveManager;
-        [SerializeField] GameObject prompt;
+        [SerializeField] GameObject glow;
 
-        bool isHighlighted;
-
-        private void Awake()
+        protected override void Awake()
         {
-            prompt.SetActive(false);
+            base.Awake();
+            SetGlow(true);
         }
 
-        private void OnEnable()
+        protected override void OnInteract()
         {
-            waveManager.WaveStarted += OnWaveChanged;
-            waveManager.WaveCompleted += OnWaveChanged;
+            WaveManager.StartWave();
         }
 
-        private void OnDisable()
+        protected override void OnWaveStateChanged(bool isWaveActive)
         {
-            waveManager.WaveStarted -= OnWaveChanged;
-            waveManager.WaveCompleted -= OnWaveChanged;
+            SetGlow(!isWaveActive);
         }
 
-        public void Interact()
+        private void SetGlow(bool isOn)
         {
-            waveManager.StartWave();
-        }
-
-        public void SetHighlighted(bool highlighted)
-        {
-            isHighlighted = highlighted;
-            UpdatePrompt();
-        }
-
-        private void OnWaveChanged(int wave)
-        {
-            UpdatePrompt();
-        }
-
-        private void UpdatePrompt()
-        {
-            prompt.SetActive(isHighlighted && !waveManager.IsWaveActive);
+            if (glow != null)
+            {
+                glow.SetActive(isOn);
+            }
         }
     }
 }

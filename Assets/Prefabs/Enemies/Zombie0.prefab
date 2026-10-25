@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3142597213234957126}
   - component: {fileID: -4491783838469230870}
   - component: {fileID: 3065706760369625484}
+  - component: {fileID: 8406265609468728701}
   m_Layer: 7
   m_Name: Zombie0
   m_TagString: Enemy
@@ -227,3 +228,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 3
   invulnerabilityDuration: 0
+--- !u!114 &8406265609468728701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5980579796443154516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb177a784ea20f40b67b1fc28b1e21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Combat.DamageFlash
+  flashColor: {r: 1, g: 1, b: 1, a: 0.35}
+  flashDuration: 0.08

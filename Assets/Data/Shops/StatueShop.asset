@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909983e46b8e8e64aa6709d4158c8197, type: 3}
+  m_Name: StatueShop
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Upgrades.ShopCatalog
+  shopName: Statue of Vigor
+  upgrades:
+  - {fileID: 11400000, guid: 828009cc0a8d48588dc0f9c95dc740aa, type: 2}
+  - {fileID: 11400000, guid: af425471065e409ea0a5420fa3f7329a, type: 2}
+  - {fileID: 11400000, guid: aa7a573b9ee74d93853aa0dbd41a2d5c, type: 2}
+  - {fileID: 11400000, guid: bc68ef617e42412dac79536059545477, type: 2}

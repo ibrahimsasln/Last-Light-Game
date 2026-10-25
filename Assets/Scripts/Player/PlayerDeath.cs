@@ -1,7 +1,5 @@
-using System.Collections;
 using UnityEngine;
 using Tilemania.Combat;
-using Tilemania.Managers;
 
 namespace Tilemania.Player
 {
@@ -10,7 +8,6 @@ namespace Tilemania.Player
         static readonly int DyingHash = Animator.StringToHash("Dying");
 
         [SerializeField] float deathBounce = 10f;
-        [SerializeField] float gameOverDelay = 2f;
 
         Health health;
         Rigidbody2D playerRB;
@@ -37,13 +34,6 @@ namespace Tilemania.Player
         {
             playerAnimator.SetTrigger(DyingHash);
             playerRB.linearVelocity = new Vector2(0f, deathBounce);
-            StartCoroutine(GameOverAfterDelay());
-        }
-
-        private IEnumerator GameOverAfterDelay()
-        {
-            yield return new WaitForSeconds(gameOverDelay);
-            GameManager.Instance.GameOver();
         }
     }
 }

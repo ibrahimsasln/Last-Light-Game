@@ -111,6 +111,10 @@ GameObject:
   - component: {fileID: 4959497058990872130}
   - component: {fileID: 8477186018785537063}
   - component: {fileID: 6988282840980036495}
+  - component: {fileID: 3182168249352857391}
+  - component: {fileID: 7072381939231048986}
+  - component: {fileID: 4842847060995610611}
+  - component: {fileID: 5443758295368184569}
   m_Layer: 8
   m_Name: FarmBoy (Player)
   m_TagString: Player
@@ -428,3 +432,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   interactRadius: 1.5
+--- !u!114 &3182168249352857391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069054026766074980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a3655c041ad5646b9499f4d84eeccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Player.PlayerAim
+  gun: {fileID: 5038176593075621654}
+--- !u!114 &7072381939231048986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069054026766074980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5807c8b9f05cf64488a3b1384a1039ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Player.PlayerWallet
+--- !u!114 &4842847060995610611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069054026766074980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e05084c84a67ad4fa2b95421d4e80b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Player.PlayerUpgrades
+--- !u!114 &5443758295368184569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069054026766074980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb177a784ea20f40b67b1fc28b1e21d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Combat.DamageFlash
+  flashColor: {r: 1, g: 0.35, b: 0.35, a: 1}
+  flashDuration: 0.1

@@ -48,9 +48,19 @@ namespace Tilemania.Enemies
 
         private void OnCollisionStay2D(Collision2D collision)
         {
-            if (health.IsDead || !collision.gameObject.CompareTag(Tags.Player)) return;
+            TryDamage(collision.gameObject);
+        }
 
-            if (collision.gameObject.TryGetComponent(out Health playerHealth))
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            TryDamage(other.gameObject);
+        }
+
+        private void TryDamage(GameObject other)
+        {
+            if (health.IsDead || !other.CompareTag(Tags.Player)) return;
+
+            if (other.TryGetComponent(out Health playerHealth))
             {
                 playerHealth.TakeDamage(contactDamage, transform.position);
             }

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2778111377722628831}
   - component: {fileID: 4282715307164150570}
+  - component: {fileID: 5449171449695615706}
+  - component: {fileID: 3114593011250236480}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,3 +47,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerLives: 3
+--- !u!114 &5449171449695615706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665943302606721544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4403a08ff4210e64ab4e6a010ec247bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.UI.UIManager
+  theme: {fileID: 11400000, guid: 6b13a02cd7c84fc4bc5b19c5ba634485, type: 2}
+--- !u!114 &3114593011250236480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8665943302606721544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8363ee968e5441d38a97e4dbc9c3bbaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Audio.AudioManager
+  library: {fileID: 11400000, guid: bf7c7ae5884b4fa09c086e57c7580fae, type: 2}
+  defaultVolume: 0.8
