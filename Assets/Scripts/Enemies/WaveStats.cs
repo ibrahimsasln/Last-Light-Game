@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public struct WaveStats
+namespace Tilemania.Enemies
 {
-    public float HealthMultiplier;
-    public float SpeedMultiplier;
-    public int BonusDamage;
-    public int CoinMultiplier;
-    public Color Tint;
+    public struct WaveStats
+    {
+        public float HealthMultiplier;
+        public float SpeedMultiplier;
+        public int BonusDamage;
+        public int CoinMultiplier;
+        public Color Tint;
+    }
 }

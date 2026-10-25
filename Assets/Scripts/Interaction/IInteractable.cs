@@ -1,5 +1,8 @@
-public interface IInteractable
+namespace Tilemania.Interaction
 {
-    void Interact();
-    void SetHighlighted(bool highlighted);
+    public interface IInteractable
+    {
+        void Interact();
+        void SetHighlighted(bool highlighted);
+    }
 }

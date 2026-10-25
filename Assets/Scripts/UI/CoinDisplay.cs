@@ -1,31 +1,35 @@
 using TMPro;
 using UnityEngine;
+using Tilemania.Managers;
 
-public class CoinDisplay : MonoBehaviour
+namespace Tilemania.UI
 {
-    TextMeshProUGUI coinText;
-
-    private void Awake()
+    public class CoinDisplay : MonoBehaviour
     {
-        coinText = GetComponent<TextMeshProUGUI>();
-    }
+        TextMeshProUGUI coinText;
 
-    private void Start()
-    {
-        GameManager.Instance.CoinsChanged += UpdateText;
-        UpdateText(GameManager.Instance.Coins);
-    }
-
-    private void OnDestroy()
-    {
-        if (GameManager.Instance != null)
+        private void Awake()
         {
-            GameManager.Instance.CoinsChanged -= UpdateText;
+            coinText = GetComponent<TextMeshProUGUI>();
         }
-    }
 
-    private void UpdateText(int coins)
-    {
-        coinText.text = coins.ToString();
+        private void Start()
+        {
+            GameManager.Instance.CoinsChanged += UpdateText;
+            UpdateText(GameManager.Instance.Coins);
+        }
+
+        private void OnDestroy()
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CoinsChanged -= UpdateText;
+            }
+        }
+
+        private void UpdateText(int coins)
+        {
+            coinText.text = coins.ToString();
+        }
     }
 }

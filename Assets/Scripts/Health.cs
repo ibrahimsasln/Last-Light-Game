@@ -1,61 +1,64 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+namespace Tilemania.Combat
 {
-    [SerializeField] int maxHealth = 3;
-    [SerializeField] float invulnerabilityDuration = 0f;
-
-    float invulnerableUntil;
-
-    public int CurrentHealth { get; private set; }
-    public int MaxHealth => maxHealth;
-    public bool IsDead { get; private set; }
-
-    public event Action<int, int> HealthChanged;
-    public event Action<Vector2> Damaged;
-    public event Action Died;
-
-    bool IsInvulnerable => Time.time < invulnerableUntil;
-
-    private void Awake()
+    public class Health : MonoBehaviour
     {
-        CurrentHealth = maxHealth;
-    }
+        [SerializeField] int maxHealth = 3;
+        [SerializeField] float invulnerabilityDuration = 0f;
 
-    public void SetMaxHealth(int value)
-    {
-        maxHealth = Mathf.Max(1, value);
-        CurrentHealth = maxHealth;
-        HealthChanged?.Invoke(CurrentHealth, maxHealth);
-    }
+        float invulnerableUntil;
 
-    public void Kill()
-    {
-        if (IsDead) return;
+        public int CurrentHealth { get; private set; }
+        public int MaxHealth => maxHealth;
+        public bool IsDead { get; private set; }
 
-        CurrentHealth = 0;
-        HealthChanged?.Invoke(CurrentHealth, maxHealth);
-        IsDead = true;
-        Died?.Invoke();
-    }
+        public event Action<int, int> HealthChanged;
+        public event Action<Vector2> Damaged;
+        public event Action Died;
 
-    public void TakeDamage(int amount, Vector2 hitFrom)
-    {
-        if (IsDead || IsInvulnerable) return;
+        bool IsInvulnerable => Time.time < invulnerableUntil;
 
-        CurrentHealth = Mathf.Max(CurrentHealth - amount, 0);
-        invulnerableUntil = Time.time + invulnerabilityDuration;
-        HealthChanged?.Invoke(CurrentHealth, maxHealth);
-
-        if (CurrentHealth == 0)
+        private void Awake()
         {
+            CurrentHealth = maxHealth;
+        }
+
+        public void SetMaxHealth(int value)
+        {
+            maxHealth = Mathf.Max(1, value);
+            CurrentHealth = maxHealth;
+            HealthChanged?.Invoke(CurrentHealth, maxHealth);
+        }
+
+        public void Kill()
+        {
+            if (IsDead) return;
+
+            CurrentHealth = 0;
+            HealthChanged?.Invoke(CurrentHealth, maxHealth);
             IsDead = true;
             Died?.Invoke();
         }
-        else
+
+        public void TakeDamage(int amount, Vector2 hitFrom)
         {
-            Damaged?.Invoke(hitFrom);
+            if (IsDead || IsInvulnerable) return;
+
+            CurrentHealth = Mathf.Max(CurrentHealth - amount, 0);
+            invulnerableUntil = Time.time + invulnerabilityDuration;
+            HealthChanged?.Invoke(CurrentHealth, maxHealth);
+
+            if (CurrentHealth == 0)
+            {
+                IsDead = true;
+                Died?.Invoke();
+            }
+            else
+            {
+                Damaged?.Invoke(hitFrom);
+            }
         }
     }
 }

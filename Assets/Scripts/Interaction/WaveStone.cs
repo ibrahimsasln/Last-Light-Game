@@ -1,48 +1,52 @@
 using UnityEngine;
+using Tilemania.Managers;
 
-public class WaveStone : MonoBehaviour, IInteractable
+namespace Tilemania.Interaction
 {
-    [SerializeField] GameObject prompt;
-
-    WaveManager waveManager;
-    bool isHighlighted;
-
-    private void Awake()
+    public class WaveStone : MonoBehaviour, IInteractable
     {
-        waveManager = FindFirstObjectByType<WaveManager>();
-        prompt.SetActive(false);
-    }
+        [SerializeField] GameObject prompt;
 
-    private void OnEnable()
-    {
-        waveManager.WaveStarted += OnWaveChanged;
-        waveManager.WaveCompleted += OnWaveChanged;
-    }
+        WaveManager waveManager;
+        bool isHighlighted;
 
-    private void OnDisable()
-    {
-        waveManager.WaveStarted -= OnWaveChanged;
-        waveManager.WaveCompleted -= OnWaveChanged;
-    }
+        private void Awake()
+        {
+            waveManager = FindFirstObjectByType<WaveManager>();
+            prompt.SetActive(false);
+        }
 
-    public void Interact()
-    {
-        waveManager.StartWave();
-    }
+        private void OnEnable()
+        {
+            waveManager.WaveStarted += OnWaveChanged;
+            waveManager.WaveCompleted += OnWaveChanged;
+        }
 
-    public void SetHighlighted(bool highlighted)
-    {
-        isHighlighted = highlighted;
-        UpdatePrompt();
-    }
+        private void OnDisable()
+        {
+            waveManager.WaveStarted -= OnWaveChanged;
+            waveManager.WaveCompleted -= OnWaveChanged;
+        }
 
-    private void OnWaveChanged(int wave)
-    {
-        UpdatePrompt();
-    }
+        public void Interact()
+        {
+            waveManager.StartWave();
+        }
 
-    private void UpdatePrompt()
-    {
-        prompt.SetActive(isHighlighted && !waveManager.IsWaveActive);
+        public void SetHighlighted(bool highlighted)
+        {
+            isHighlighted = highlighted;
+            UpdatePrompt();
+        }
+
+        private void OnWaveChanged(int wave)
+        {
+            UpdatePrompt();
+        }
+
+        private void UpdatePrompt()
+        {
+            prompt.SetActive(isHighlighted && !waveManager.IsWaveActive);
+        }
     }
 }

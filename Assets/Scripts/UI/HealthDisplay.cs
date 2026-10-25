@@ -1,34 +1,39 @@
 using TMPro;
 using UnityEngine;
+using Tilemania.Combat;
+using Tilemania.Core;
 
-public class HealthDisplay : MonoBehaviour
+namespace Tilemania.UI
 {
-    TextMeshProUGUI healthText;
-    Health playerHealth;
-
-    private void Awake()
+    public class HealthDisplay : MonoBehaviour
     {
-        healthText = GetComponent<TextMeshProUGUI>();
-        playerHealth = GameObject.FindWithTag("Player").GetComponent<Health>();
-    }
+        TextMeshProUGUI healthText;
+        Health playerHealth;
 
-    private void OnEnable()
-    {
-        playerHealth.HealthChanged += UpdateText;
-    }
+        private void Awake()
+        {
+            healthText = GetComponent<TextMeshProUGUI>();
+            playerHealth = GameObject.FindWithTag(Tags.Player).GetComponent<Health>();
+        }
 
-    private void OnDisable()
-    {
-        playerHealth.HealthChanged -= UpdateText;
-    }
+        private void OnEnable()
+        {
+            playerHealth.HealthChanged += UpdateText;
+        }
 
-    private void Start()
-    {
-        UpdateText(playerHealth.CurrentHealth, playerHealth.MaxHealth);
-    }
+        private void OnDisable()
+        {
+            playerHealth.HealthChanged -= UpdateText;
+        }
 
-    private void UpdateText(int current, int max)
-    {
-        healthText.text = $"HP {current}/{max}";
+        private void Start()
+        {
+            UpdateText(playerHealth.CurrentHealth, playerHealth.MaxHealth);
+        }
+
+        private void UpdateText(int current, int max)
+        {
+            healthText.text = $"HP {current}/{max}";
+        }
     }
 }

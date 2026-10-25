@@ -1,18 +1,23 @@
 using UnityEngine;
+using Tilemania.Core;
+using Tilemania.Managers;
 
-public class CoinPickup : MonoBehaviour
+namespace Tilemania.Coin
 {
-    [SerializeField] AudioClip coinPickupSFX;
-
-    bool wasCollected;
-
-    private void OnCollisionEnter2D(Collision2D other)
+    public class CoinPickup : MonoBehaviour
     {
-        if (wasCollected || !other.gameObject.CompareTag("Player")) return;
-        wasCollected = true;
+        [SerializeField] AudioClip coinPickupSFX;
 
-        GameManager.Instance.AddCoins(1);
-        AudioSource.PlayClipAtPoint(coinPickupSFX, transform.position);
-        Destroy(gameObject);
+        bool wasCollected;
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (wasCollected || !other.gameObject.CompareTag(Tags.Player)) return;
+            wasCollected = true;
+
+            GameManager.Instance.AddCoins(1);
+            AudioSource.PlayClipAtPoint(coinPickupSFX, transform.position);
+            Destroy(gameObject);
+        }
     }
 }

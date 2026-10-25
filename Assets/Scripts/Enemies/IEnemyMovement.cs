@@ -1,4 +1,7 @@
-public interface IEnemyMovement
+namespace Tilemania.Enemies
 {
-    void SetSpeedMultiplier(float multiplier);
+    public interface IEnemyMovement
+    {
+        void SetSpeedMultiplier(float multiplier);
+    }
 }

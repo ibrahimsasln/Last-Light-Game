@@ -1,29 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Tilemania.Combat;
 
-public class PlayerShooting : MonoBehaviour
+namespace Tilemania.Player
 {
-    [SerializeField] Bullet bulletPrefab;
-    [SerializeField] Transform gun;
-    [SerializeField] float fireCooldown = 0.2f;
-    [SerializeField] int bulletDamage = 1;
-
-    Health health;
-    float nextFireTime;
-
-    private void Awake()
+    public class PlayerShooting : MonoBehaviour
     {
-        health = GetComponent<Health>();
-    }
+        [SerializeField] Bullet bulletPrefab;
+        [SerializeField] Transform gun;
+        [SerializeField] float fireCooldown = 0.2f;
+        [SerializeField] int bulletDamage = 1;
 
-    private void OnAttack(InputValue value)
-    {
-        if (health.IsDead) return;
-        if (Time.time < nextFireTime) return;
+        Health health;
+        float nextFireTime;
 
-        nextFireTime = Time.time + fireCooldown;
+        private void Awake()
+        {
+            health = GetComponent<Health>();
+        }
 
-        Bullet bullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
-        bullet.Launch(Mathf.Sign(transform.localScale.x), bulletDamage);
+        private void OnAttack(InputValue value)
+        {
+            if (health.IsDead) return;
+            if (Time.time < nextFireTime) return;
+
+            nextFireTime = Time.time + fireCooldown;
+
+            Bullet bullet = Instantiate(bulletPrefab, gun.position, Quaternion.identity);
+            bullet.Launch(Mathf.Sign(transform.localScale.x), bulletDamage);
+        }
     }
 }

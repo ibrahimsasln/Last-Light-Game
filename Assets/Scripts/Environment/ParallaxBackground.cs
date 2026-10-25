@@ -1,35 +1,38 @@
 using UnityEngine;
 
-public class ParallaxBackground : MonoBehaviour
+namespace Tilemania.Environment
 {
-    [SerializeField] float parallaxSpeed;
-
-    Transform cameraTransform;
-    float startXPos;
-    float bgLength;
-
-    private void Awake()
+    public class ParallaxBackground : MonoBehaviour
     {
-        cameraTransform = Camera.main.transform;
-        startXPos = transform.position.x;
-        bgLength = GetComponent<SpriteRenderer>().bounds.size.x;
-    }
+        [SerializeField] float parallaxSpeed;
 
-    private void LateUpdate()
-    {
-        float cameraX = cameraTransform.position.x;
-        float distance = cameraX * parallaxSpeed;
-        float movement = cameraX * (1 - parallaxSpeed);
+        Transform cameraTransform;
+        float startXPos;
+        float bgLength;
 
-        transform.position = new Vector2(startXPos + distance, transform.position.y);
-
-        if (movement > startXPos + bgLength)
+        private void Awake()
         {
-            startXPos += bgLength;
+            cameraTransform = Camera.main.transform;
+            startXPos = transform.position.x;
+            bgLength = GetComponent<SpriteRenderer>().bounds.size.x;
         }
-        else if (movement < startXPos - bgLength)
+
+        private void LateUpdate()
         {
-            startXPos -= bgLength;
+            float cameraX = cameraTransform.position.x;
+            float distance = cameraX * parallaxSpeed;
+            float movement = cameraX * (1 - parallaxSpeed);
+
+            transform.position = new Vector2(startXPos + distance, transform.position.y);
+
+            if (movement > startXPos + bgLength)
+            {
+                startXPos += bgLength;
+            }
+            else if (movement < startXPos - bgLength)
+            {
+                startXPos -= bgLength;
+            }
         }
     }
 }

@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Tilemania.Combat
 {
-    [SerializeField] float bulletSpeed = 20f;
-    [SerializeField] float bulletLifeTime = 1f;
-
-    int damage;
-    bool hasHit;
-
-    public void Launch(float direction, int damage)
+    public class Bullet : MonoBehaviour
     {
-        this.damage = damage;
-        GetComponent<Rigidbody2D>().linearVelocityX = direction * bulletSpeed;
-        Destroy(gameObject, bulletLifeTime);
-    }
+        [SerializeField] float bulletSpeed = 20f;
+        [SerializeField] float bulletLifeTime = 1f;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (hasHit) return;
-        hasHit = true;
+        int damage;
+        bool hasHit;
 
-        if (other.TryGetComponent(out Health health))
+        public void Launch(float direction, int damage)
         {
-            health.TakeDamage(damage, transform.position);
+            this.damage = damage;
+            GetComponent<Rigidbody2D>().linearVelocityX = direction * bulletSpeed;
+            Destroy(gameObject, bulletLifeTime);
         }
-        Destroy(gameObject);
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (hasHit) return;
+            hasHit = true;
+
+            if (other.TryGetComponent(out Health health))
+            {
+                health.TakeDamage(damage, transform.position);
+            }
+            Destroy(gameObject);
+        }
     }
 }

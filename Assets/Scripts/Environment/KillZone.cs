@@ -1,16 +1,20 @@
 using UnityEngine;
+using Tilemania.Combat;
 
-public class KillZone : MonoBehaviour
+namespace Tilemania.Environment
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public class KillZone : MonoBehaviour
     {
-        if (other.TryGetComponent(out Health health))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            health.Kill();
-        }
-        else
-        {
-            Destroy(other.gameObject);
+            if (other.TryGetComponent(out Health health))
+            {
+                health.Kill();
+            }
+            else
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }
