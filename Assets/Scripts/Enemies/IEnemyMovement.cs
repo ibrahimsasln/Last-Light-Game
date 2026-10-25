@@ -1,7 +1,9 @@
+using Tilemania.Combat;
+
 namespace Tilemania.Enemies
 {
     public interface IEnemyMovement
     {
-        void SetSpeedMultiplier(float multiplier);
+        void Initialize(Health target, float speedMultiplier);
     }
 }

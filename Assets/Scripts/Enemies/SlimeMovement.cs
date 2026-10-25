@@ -32,16 +32,13 @@ namespace Tilemania.Enemies
             slimeRB = GetComponent<Rigidbody2D>();
             groundLayer = LayerMask.GetMask(LayerNames.Ground);
 
-            GameObject player = GameObject.FindWithTag(Tags.Player);
-            playerTransform = player.transform;
-            playerHealth = player.GetComponent<Health>();
 
             nextJumpTime = Time.time + waitTime;
         }
 
         private void FixedUpdate()
         {
-            if (playerHealth.IsDead) return;
+            if (playerHealth == null || playerHealth.IsDead) return;
 
             switch (state)
             {
@@ -99,9 +96,11 @@ namespace Tilemania.Enemies
             state = State.Waiting;
         }
 
-        public void SetSpeedMultiplier(float multiplier)
+        public void Initialize(Health target, float speedMultiplier)
         {
-            speedMultiplier = multiplier;
+            playerHealth = target;
+            playerTransform = target.transform;
+            this.speedMultiplier = speedMultiplier;
         }
 
         private bool IsGrounded()

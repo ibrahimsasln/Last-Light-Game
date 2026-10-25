@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 2319121401488429679}
   - component: {fileID: 4959497058990872130}
   - component: {fileID: 8477186018785537063}
+  - component: {fileID: 6988282840980036495}
   m_Layer: 8
   m_Name: FarmBoy (Player)
   m_TagString: Player
@@ -414,3 +415,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 5
   invulnerabilityDuration: 1
+--- !u!114 &6988282840980036495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069054026766074980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cc891894b1172448414cf43af612e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  interactRadius: 1.5

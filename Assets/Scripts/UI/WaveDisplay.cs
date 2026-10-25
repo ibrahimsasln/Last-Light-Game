@@ -6,13 +6,13 @@ namespace Tilemania.UI
 {
     public class WaveDisplay : MonoBehaviour
     {
+        [SerializeField] WaveManager waveManager;
+
         TextMeshProUGUI waveText;
-        WaveManager waveManager;
 
         private void Awake()
         {
             waveText = GetComponent<TextMeshProUGUI>();
-            waveManager = FindFirstObjectByType<WaveManager>();
         }
 
         private void OnEnable()

@@ -5,14 +5,13 @@ namespace Tilemania.Interaction
 {
     public class WaveStone : MonoBehaviour, IInteractable
     {
+        [SerializeField] WaveManager waveManager;
         [SerializeField] GameObject prompt;
 
-        WaveManager waveManager;
         bool isHighlighted;
 
         private void Awake()
         {
-            waveManager = FindFirstObjectByType<WaveManager>();
             prompt.SetActive(false);
         }
 

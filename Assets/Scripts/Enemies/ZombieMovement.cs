@@ -22,14 +22,11 @@ namespace Tilemania.Enemies
             zombieRB = GetComponent<Rigidbody2D>();
             groundLayer = LayerMask.GetMask(LayerNames.Ground);
 
-            GameObject player = GameObject.FindWithTag(Tags.Player);
-            playerTransform = player.transform;
-            playerHealth = player.GetComponent<Health>();
         }
 
         private void FixedUpdate()
         {
-            if (playerHealth.IsDead)
+            if (playerHealth == null || playerHealth.IsDead)
             {
                 zombieRB.linearVelocityX = 0f;
                 return;
@@ -45,9 +42,11 @@ namespace Tilemania.Enemies
             }
         }
 
-        public void SetSpeedMultiplier(float multiplier)
+        public void Initialize(Health target, float speedMultiplier)
         {
-            speedMultiplier = multiplier;
+            playerHealth = target;
+            playerTransform = target.transform;
+            this.speedMultiplier = speedMultiplier;
         }
 
         private bool IsGrounded()

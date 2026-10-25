@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tilemania.Coin;
 using Tilemania.Combat;
-using Tilemania.Core;
 using Tilemania.Enemies;
 
 namespace Tilemania.Managers
@@ -11,6 +11,10 @@ namespace Tilemania.Managers
     public class WaveManager : MonoBehaviour
     {
         enum State { Preparing, InWave }
+
+        [Header("References")]
+        [SerializeField] Health playerHealth;
+        [SerializeField] CoinDropper coinDropper;
 
         [Header("Enemies")]
         [SerializeField] Enemy zombiePrefab;
@@ -44,7 +48,6 @@ namespace Tilemania.Managers
         int enemiesAlive;
         int enemiesLeftToSpawn;
         Camera mainCamera;
-        Health playerHealth;
 
         public int CurrentWave { get; private set; }
         public bool IsWaveActive => state == State.InWave;
@@ -55,7 +58,6 @@ namespace Tilemania.Managers
         private void Awake()
         {
             mainCamera = Camera.main;
-            playerHealth = GameObject.FindWithTag(Tags.Player).GetComponent<Health>();
         }
 
         private void OnEnable()
@@ -100,7 +102,7 @@ namespace Tilemania.Managers
             Vector2 position = ChooseSpawnPoint().position;
 
             Enemy enemy = Instantiate(prefab, position, Quaternion.identity);
-            enemy.ApplyWaveStats(CalculateWaveStats());
+            enemy.Initialize(playerHealth, coinDropper, CalculateWaveStats());
             enemy.Died += OnEnemyDied;
             enemiesAlive++;
         }

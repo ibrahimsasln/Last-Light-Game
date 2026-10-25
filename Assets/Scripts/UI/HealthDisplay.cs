@@ -1,19 +1,18 @@
 using TMPro;
 using UnityEngine;
 using Tilemania.Combat;
-using Tilemania.Core;
 
 namespace Tilemania.UI
 {
     public class HealthDisplay : MonoBehaviour
     {
+        [SerializeField] Health playerHealth;
+
         TextMeshProUGUI healthText;
-        Health playerHealth;
 
         private void Awake()
         {
             healthText = GetComponent<TextMeshProUGUI>();
-            playerHealth = GameObject.FindWithTag(Tags.Player).GetComponent<Health>();
         }
 
         private void OnEnable()

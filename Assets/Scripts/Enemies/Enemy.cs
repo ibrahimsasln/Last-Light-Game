@@ -23,7 +23,6 @@ namespace Tilemania.Enemies
             health = GetComponent<Health>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             movement = GetComponent<IEnemyMovement>();
-            coinDropper = FindFirstObjectByType<CoinDropper>();
         }
 
         private void OnEnable()
@@ -36,13 +35,15 @@ namespace Tilemania.Enemies
             health.Died -= OnDied;
         }
 
-        public void ApplyWaveStats(WaveStats stats)
+        public void Initialize(Health target, CoinDropper coinDropper, WaveStats stats)
         {
+            this.coinDropper = coinDropper;
+
             health.SetMaxHealth(Mathf.RoundToInt(health.MaxHealth * stats.HealthMultiplier));
             contactDamage += stats.BonusDamage;
             coinDropCount *= stats.CoinMultiplier;
             spriteRenderer.color = stats.Tint;
-            movement.SetSpeedMultiplier(stats.SpeedMultiplier);
+            movement.Initialize(target, stats.SpeedMultiplier);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
