@@ -13,36 +13,12 @@ namespace Tilemania.Managers
         enum State { Preparing, InWave }
 
         [Header("References")]
+        [SerializeField] WaveSettings settings;
         [SerializeField] Health playerHealth;
         [SerializeField] CoinDropper coinDropper;
 
-        [Header("Enemies")]
-        [SerializeField] Enemy zombiePrefab;
-        [SerializeField] Enemy slimePrefab;
-        [SerializeField] int slimeStartWave = 3;
-        [SerializeField, Range(0f, 1f)] float slimeChance = 0.3f;
-
         [Header("Spawning")]
         [SerializeField] Transform[] spawnPoints;
-
-        [Header("Difficulty")]
-        [SerializeField] int baseEnemyCount = 5;
-        [SerializeField] int enemiesPerWave = 2;
-        [SerializeField] float baseSpawnInterval = 2f;
-        [SerializeField] float spawnIntervalDecrease = 0.1f;
-        [SerializeField] float minSpawnInterval = 0.5f;
-        [SerializeField] float healthIncreasePerWave = 0.15f;
-        [SerializeField] float speedIncreasePerWave = 0.02f;
-        [SerializeField] float maxSpeedMultiplier = 1.5f;
-        [SerializeField] int wavesPerBonusDamage = 7;
-
-        [Header("Elite Enemies")]
-        [SerializeField] float eliteChancePerWave = 0.03f;
-        [SerializeField, Range(0f, 1f)] float maxEliteChance = 0.5f;
-        [SerializeField] float eliteHealthMultiplier = 2f;
-        [SerializeField] int eliteBonusDamage = 1;
-        [SerializeField] int eliteCoinMultiplier = 3;
-        [SerializeField] Color eliteTint = new(1f, 0.45f, 0.45f);
 
         State state = State.Preparing;
         int enemiesAlive;
@@ -77,7 +53,7 @@ namespace Tilemania.Managers
             CurrentWave++;
             state = State.InWave;
             enemiesAlive = 0;
-            enemiesLeftToSpawn = baseEnemyCount + enemiesPerWave * CurrentWave;
+            enemiesLeftToSpawn = settings.GetEnemyCount(CurrentWave);
 
             WaveStarted?.Invoke(CurrentWave);
             StartCoroutine(SpawnEnemies());
@@ -85,8 +61,7 @@ namespace Tilemania.Managers
 
         private IEnumerator SpawnEnemies()
         {
-            float interval = Mathf.Max(minSpawnInterval, baseSpawnInterval - spawnIntervalDecrease * (CurrentWave - 1));
-            WaitForSeconds wait = new WaitForSeconds(interval);
+            WaitForSeconds wait = new WaitForSeconds(settings.GetSpawnInterval(CurrentWave));
 
             while (enemiesLeftToSpawn > 0)
             {
@@ -98,11 +73,12 @@ namespace Tilemania.Managers
 
         private void SpawnEnemy()
         {
-            Enemy prefab = ChooseEnemyPrefab();
+            Enemy prefab = settings.ChooseEnemy(CurrentWave, UnityEngine.Random.value);
+            bool isElite = UnityEngine.Random.value < settings.GetEliteChance(CurrentWave);
             Vector2 position = ChooseSpawnPoint().position;
 
             Enemy enemy = Instantiate(prefab, position, Quaternion.identity);
-            enemy.Initialize(playerHealth, coinDropper, CalculateWaveStats());
+            enemy.Initialize(playerHealth, coinDropper, settings.CreateStats(CurrentWave, isElite));
             enemy.Died += OnEnemyDied;
             enemiesAlive++;
         }
@@ -129,12 +105,6 @@ namespace Tilemania.Managers
             StopAllCoroutines();
         }
 
-        private Enemy ChooseEnemyPrefab()
-        {
-            bool canSpawnSlime = CurrentWave >= slimeStartWave;
-            return canSpawnSlime && UnityEngine.Random.value < slimeChance ? slimePrefab : zombiePrefab;
-        }
-
         private Transform ChooseSpawnPoint()
         {
             List<Transform> hiddenPoints = new List<Transform>();
@@ -154,36 +124,6 @@ namespace Tilemania.Managers
         {
             Vector3 viewportPoint = mainCamera.WorldToViewportPoint(position);
             return viewportPoint.x >= 0f && viewportPoint.x <= 1f && viewportPoint.y >= 0f && viewportPoint.y <= 1f;
-        }
-
-        private WaveStats CalculateWaveStats()
-        {
-            int wavesPassed = CurrentWave - 1;
-
-            WaveStats stats = new WaveStats
-            {
-                HealthMultiplier = 1f + healthIncreasePerWave * wavesPassed,
-                SpeedMultiplier = Mathf.Min(1f + speedIncreasePerWave * wavesPassed, maxSpeedMultiplier),
-                BonusDamage = wavesPassed / wavesPerBonusDamage,
-                CoinMultiplier = 1,
-                Tint = Color.white
-            };
-
-            if (RollElite(wavesPassed))
-            {
-                stats.HealthMultiplier *= eliteHealthMultiplier;
-                stats.BonusDamage += eliteBonusDamage;
-                stats.CoinMultiplier = eliteCoinMultiplier;
-                stats.Tint = eliteTint;
-            }
-
-            return stats;
-        }
-
-        private bool RollElite(int wavesPassed)
-        {
-            float eliteChance = Mathf.Min(eliteChancePerWave * wavesPassed, maxEliteChance);
-            return UnityEngine.Random.value < eliteChance;
         }
     }
 }

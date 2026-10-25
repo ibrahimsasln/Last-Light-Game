@@ -23683,32 +23683,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103863a84913b8944a844842beb24cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  settings: {fileID: 11400000, guid: 7892a8fe8b7d4e7c9963ff77f5802dda, type: 2}
   playerHealth: {fileID: 1668288589968306913}
   coinDropper: {fileID: 1559542687}
-  zombiePrefab: {fileID: -4491783838469230870, guid: 666b5cd22fd44754fa9432c8d51e5cd9, type: 3}
-  slimePrefab: {fileID: 5516322291213745754, guid: e0c885a9b642e8848b4d23d196747bc6, type: 3}
-  slimeStartWave: 3
-  slimeChance: 0.3
   spawnPoints:
   - {fileID: 681864664}
   - {fileID: 550788964}
   - {fileID: 1804459589}
   - {fileID: 377214387}
-  baseEnemyCount: 5
-  enemiesPerWave: 2
-  baseSpawnInterval: 2
-  spawnIntervalDecrease: 0.1
-  minSpawnInterval: 0.5
-  healthIncreasePerWave: 0.15
-  speedIncreasePerWave: 0.02
-  maxSpeedMultiplier: 1.5
-  wavesPerBonusDamage: 7
-  eliteChancePerWave: 0.03
-  maxEliteChance: 0.5
-  eliteHealthMultiplier: 2
-  eliteBonusDamage: 1
-  eliteCoinMultiplier: 3
-  eliteTint: {r: 1, g: 0.45, b: 0.45, a: 1}
 --- !u!4 &1452002914
 Transform:
   m_ObjectHideFlags: 0
@@ -24490,7 +24472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6180225799345113476, guid: e20f0cf716aef804191821e22ec680b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.53
+      value: 0.73
       objectReference: {fileID: 0}
     - target: {fileID: 6180225799345113476, guid: e20f0cf716aef804191821e22ec680b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24792,7 +24774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 958794166743022422, guid: f6adf6bde67f10041a2a97d929d5f368, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.009944
+      value: 12.209944
       objectReference: {fileID: 0}
     - target: {fileID: 1268393003035941641, guid: f6adf6bde67f10041a2a97d929d5f368, type: 3}
       propertyPath: m_Follow
@@ -24804,7 +24786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1585211715516983087, guid: f6adf6bde67f10041a2a97d929d5f368, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.249944
+      value: 12.449944
       objectReference: {fileID: 0}
     - target: {fileID: 2512361399068953063, guid: f6adf6bde67f10041a2a97d929d5f368, type: 3}
       propertyPath: m_BoundingShape2D

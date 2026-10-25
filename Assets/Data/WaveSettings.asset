@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9825ff49ef3438eabdb8c59e08adf13, type: 3}
+  m_Name: WaveSettings
+  m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Managers.WaveSettings
+  enemies:
+  - prefab: {fileID: -4491783838469230870, guid: 666b5cd22fd44754fa9432c8d51e5cd9, type: 3}
+    startWave: 1
+    weight: 0.7
+  - prefab: {fileID: 5516322291213745754, guid: e0c885a9b642e8848b4d23d196747bc6, type: 3}
+    startWave: 3
+    weight: 0.3
+  baseEnemyCount: 5
+  enemiesPerWave: 2
+  baseSpawnInterval: 2
+  spawnIntervalDecrease: 0.1
+  minSpawnInterval: 0.5
+  healthIncreasePerWave: 0.15
+  speedIncreasePerWave: 0.02
+  maxSpeedMultiplier: 1.5
+  wavesPerBonusDamage: 7
+  eliteChancePerWave: 0.03
+  maxEliteChance: 0.5
+  eliteHealthMultiplier: 2
+  eliteBonusDamage: 1
+  eliteCoinMultiplier: 3
+  eliteTint: {r: 1, g: 0.45, b: 0.45, a: 1}
