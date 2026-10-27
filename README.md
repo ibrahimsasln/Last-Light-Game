@@ -23,7 +23,7 @@ A 2D wave-survival platformer made with Unity 6. Fight endless waves of zombies,
 | Aim / Shoot | Mouse / Left click |
 | Interact (start wave, open shop) | E |
 | Dodge (after unlocking) | Shift |
-| Pause | Esc |
+| Pause | Esc / P |
 
 ## Technical highlights
 

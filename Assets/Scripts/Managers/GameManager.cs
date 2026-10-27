@@ -207,7 +207,8 @@ namespace Tilemania.Managers
 
         private static bool WasPausePressed()
         {
-            bool keyboardPressed = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+            bool keyboardPressed = Keyboard.current != null
+                && (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame);
             bool gamepadPressed = Gamepad.current != null && Gamepad.current.startButton.wasPressedThisFrame;
             return keyboardPressed || gamepadPressed;
         }
