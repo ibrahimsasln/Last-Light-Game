@@ -2,7 +2,7 @@
 
 <img src="docs/cover.png" alt="Last Light" width="420">
 
-<!-- Play in the browser: https://<your-itch-username>.itch.io/last-light -->
+**[Play in the browser on itch.io](https://brahimux.itch.io/lastlight)**
 
 A small 2D wave-survival platformer I made in Unity 6.
 
