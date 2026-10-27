@@ -22,7 +22,8 @@ namespace Tilemania.Managers
         [Header("Scaling")]
         [SerializeField] float healthIncreasePerWave = 0.15f;
         [SerializeField] float speedIncreasePerWave = 0.02f;
-        [SerializeField] float maxSpeedMultiplier = 1.5f;
+        [Tooltip("0 means enemies keep getting faster forever.")]
+        [SerializeField, Min(0f)] float maxSpeedMultiplier;
         [SerializeField] int wavesPerBonusDamage = 7;
 
         [Header("Elite Enemies")]
@@ -74,6 +75,12 @@ namespace Tilemania.Managers
             return enemies[0].Prefab;
         }
 
+        private float GetSpeedMultiplier(int wavesPassed)
+        {
+            float multiplier = 1f + speedIncreasePerWave * wavesPassed;
+            return maxSpeedMultiplier > 0f ? Mathf.Min(multiplier, maxSpeedMultiplier) : multiplier;
+        }
+
         public WaveStats CreateStats(int wave, bool isElite)
         {
             int wavesPassed = wave - 1;
@@ -81,7 +88,7 @@ namespace Tilemania.Managers
             WaveStats stats = new WaveStats
             {
                 HealthMultiplier = 1f + healthIncreasePerWave * wavesPassed,
-                SpeedMultiplier = Mathf.Min(1f + speedIncreasePerWave * wavesPassed, maxSpeedMultiplier),
+                SpeedMultiplier = GetSpeedMultiplier(wavesPassed),
                 BonusDamage = wavesPassed / wavesPerBonusDamage,
                 CoinMultiplier = 1,
                 Tint = Color.white

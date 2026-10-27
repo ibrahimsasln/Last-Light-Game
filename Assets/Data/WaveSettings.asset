@@ -29,7 +29,7 @@ MonoBehaviour:
   minSpawnInterval: 0.5
   healthIncreasePerWave: 0.15
   speedIncreasePerWave: 0.02
-  maxSpeedMultiplier: 1.5
+  maxSpeedMultiplier: 0
   wavesPerBonusDamage: 7
   eliteChancePerWave: 0.03
   maxEliteChance: 0.5
