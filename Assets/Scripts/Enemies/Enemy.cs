@@ -68,8 +68,8 @@ namespace Tilemania.Enemies
 
         private void OnDied()
         {
-            Died?.Invoke(this);
             coinDropper.DropCoins(transform.position, coinDropCount);
+            Died?.Invoke(this);
             Destroy(gameObject);
         }
     }
