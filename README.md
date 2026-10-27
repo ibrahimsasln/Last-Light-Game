@@ -73,4 +73,3 @@ The art and audio packs are not included in this repository because their licens
 - Characters, enemies, UI sprites, music and sound effects: [Undead Survivor Assets Pack by Goldmetal](https://assetstore.unity.com/packages/2d/undead-survivor-assets-pack-238068)
 - Font: [Pixelify Sans](https://fonts.google.com/specimen/Pixelify+Sans) (SIL Open Font License)
 - Some sprites from the GameDev.tv course
-- Coin sound from [Pixabay](https://pixabay.com/)
