@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 4990584711144642120}
   - component: {fileID: 6249210490730398116}
   m_Layer: 0
-  m_Name: MagicStoene
+  m_Name: MagicStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
