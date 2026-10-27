@@ -1,6 +1,6 @@
-# Tilemania
+# Last Light
 
-A 2D wave-survival platformer made with Unity 6. Fight endless waves of zombies, slimes and ghosts, collect coins, and spend them on upgrades between waves.
+A 2D wave-survival platformer made with Unity 6. When the magic stone's light goes out, the night brings endless waves of zombies, slimes and ghosts. Survive, collect coins, and spend them on upgrades between waves.
 
 <!-- Add a gameplay GIF here: ![Gameplay](docs/gameplay.gif) -->
 <!-- Play in the browser: https://<your-itch-username>.itch.io/tilemania -->
