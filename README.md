@@ -47,14 +47,18 @@ There is no level cap, but prices go up every time you buy something. Waves keep
 
 ## Code
 
-Most of my time on this project went into the code structure, so a few notes:
+Most of my time on this project went into the code structure. The patterns I used and where:
 
-- The player is split into small components (movement, aiming, shooting, health, wallet, upgrades) instead of one big Player script.
-- Systems talk through C# events. For example `WaveManager` raises `WaveStarted` and `WaveCompleted`, and the wave text, the lighting and the music listen to them. The wave manager doesn't know any of them exist.
-- Wave difficulty, the enemy spawn table, upgrades and shop contents are ScriptableObjects, so balancing doesn't need code changes. Each upgrade type is a small subclass of `UpgradeDefinition`.
-- Enemies share one `Enemy` and `Health` component and only differ in their movement, which is behind an `IEnemyMovement` interface (walking, jumping and flying). The stone and the shops use an `IInteractable` interface.
-- There are no singletons or `Find` calls. Scene objects are linked in the Inspector and spawned enemies get what they need through an `Initialize` method.
-- Menus and shop windows are built from code at runtime.
+| Pattern | Where |
+|---|---|
+| Component-based design | The player is split into small components (movement, aiming, shooting, health, wallet, upgrades) instead of one big Player script. |
+| Observer (C# events) | `WaveManager` raises `WaveStarted` and `WaveCompleted`. The wave text, lighting and music listen to them, and the wave manager doesn't know they exist. |
+| Strategy | Each upgrade is a small subclass of `UpgradeDefinition`. Enemies share one `Enemy` component and only swap their movement through `IEnemyMovement` (walk, jump, fly). |
+| State machine | Game flow (`GameState`: menu, playing, shopping, paused, game over), waves (preparing / in wave) and the slime's jump. |
+| Template method | `BetweenWavesInteractable` handles the shared logic for the stone and the shops; each one only implements `OnInteract`. |
+| Data-driven design | Wave difficulty, the enemy spawn table, upgrades and shop contents are ScriptableObjects, so balancing needs no code changes. |
+| Dependency injection | No singletons or `Find` calls. Scene objects are linked in the Inspector, spawned enemies get what they need through `Initialize`. |
+| Factory | `UIFactory` builds the menus and shop windows from code at runtime. |
 
 ```mermaid
 flowchart LR
