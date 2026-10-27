@@ -34,6 +34,17 @@ There is no level cap, but prices go up every time you buy something. Waves keep
 | Dodge (after buying it) | Shift |
 | Pause | Esc or P |
 
+## Unity side
+
+- The level is built with Tilemaps and a Rule Tile. The ground uses a Tilemap Collider merged into a Composite Collider, so it is one collider instead of hundreds of small boxes.
+- The camera is Cinemachine 2 (a State-Driven Camera with a Confiner 2D, so it never shows outside the map).
+- Day and night is done with URP 2D lighting: `WaveLighting` fades a Global Light 2D when a wave starts or ends.
+- Input uses the new Input System with two action maps, one for playing and one for menus. The game switches between them when a menu opens.
+- Player and enemies are animated with Animators, and parameters are cached as hashes instead of strings.
+- The background is made of parallax layers.
+- Music crossfades between two audio sources (one track before waves, one during). The volume setting and the high score table are saved with PlayerPrefs, the high scores as JSON.
+- It is built for WebGL and runs in the browser on itch.io.
+
 ## Code
 
 Most of my time on this project went into the code structure, so a few notes:
