@@ -6,8 +6,11 @@ namespace Tilemania.Audio
     public class AudioLibrary : ScriptableObject
     {
         [Header("Music")]
-        [SerializeField] AudioClip music;
+        [SerializeField] AudioClip preparationMusic;
+        [SerializeField] AudioClip waveMusic;
+        [SerializeField, Range(0.5f, 1.5f)] float waveMusicPitch = 1f;
         [SerializeField, Range(0f, 1f)] float musicVolume = 0.35f;
+        [SerializeField] float musicFadeDuration = 1.5f;
 
         [Header("Sound Effects")]
         [SerializeField] AudioClip shoot;
@@ -18,8 +21,11 @@ namespace Tilemania.Audio
         [SerializeField] AudioClip click;
         [SerializeField] AudioClip gameOver;
 
-        public AudioClip Music => music;
+        public AudioClip PreparationMusic => preparationMusic;
+        public AudioClip WaveMusic => waveMusic;
+        public float WaveMusicPitch => waveMusicPitch;
         public float MusicVolume => musicVolume;
+        public float MusicFadeDuration => musicFadeDuration;
         public AudioClip Shoot => shoot;
         public AudioClip PlayerHurt => playerHurt;
         public AudioClip EnemyDeath => enemyDeath;

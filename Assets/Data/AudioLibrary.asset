@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59c47d123e584a27b49ab115f7177999, type: 3}
   m_Name: AudioLibrary
   m_EditorClassIdentifier: Assembly-CSharp::Tilemania.Audio.AudioLibrary
-  music: {fileID: 8300000, guid: 4559935c00ef8e94b846e2e03e39f0d0, type: 3}
+  preparationMusic: {fileID: 8300000, guid: 4559935c00ef8e94b846e2e03e39f0d0, type: 3}
+  waveMusic: {fileID: 8300000, guid: 4559935c00ef8e94b846e2e03e39f0d0, type: 3}
+  waveMusicPitch: 0.85
   musicVolume: 0.35
+  musicFadeDuration: 1.5
   shoot: {fileID: 8300000, guid: 6f0c572d865b4664db7a460972bc4768, type: 3}
   playerHurt: {fileID: 8300000, guid: 0bddcb411d826e14bb26d40ae45d8e22, type: 3}
   enemyDeath: {fileID: 8300000, guid: 291608b8d286e2a4580ff36324455ce2, type: 3}

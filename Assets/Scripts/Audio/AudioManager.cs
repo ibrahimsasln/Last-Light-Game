@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Tilemania.Combat;
 using Tilemania.Enemies;
@@ -24,6 +25,8 @@ namespace Tilemania.Audio
         UIManager ui;
         AudioSource sfxSource;
         AudioSource musicSource;
+        AudioSource fadingMusicSource;
+        Coroutine musicFade;
 
         public float Volume
         {
@@ -39,15 +42,15 @@ namespace Tilemania.Audio
         {
             ui = GetComponent<UIManager>();
             sfxSource = gameObject.AddComponent<AudioSource>();
-            musicSource = gameObject.AddComponent<AudioSource>();
-            musicSource.loop = true;
+            musicSource = CreateMusicSource();
+            fadingMusicSource = CreateMusicSource();
 
             AudioListener.volume = PlayerPrefs.GetFloat(VolumeKey, defaultVolume);
         }
 
         private void Start()
         {
-            musicSource.clip = library.Music;
+            musicSource.clip = library.PreparationMusic;
             musicSource.volume = library.MusicVolume;
             musicSource.Play();
         }
@@ -55,6 +58,7 @@ namespace Tilemania.Audio
         private void OnEnable()
         {
             waveManager.EnemyKilled += OnEnemyKilled;
+            waveManager.WaveStarted += OnWaveStarted;
             waveManager.WaveCompleted += OnWaveCompleted;
             playerHealth.Damaged += OnPlayerDamaged;
             playerShooting.Fired += OnFired;
@@ -65,6 +69,7 @@ namespace Tilemania.Audio
         private void OnDisable()
         {
             waveManager.EnemyKilled -= OnEnemyKilled;
+            waveManager.WaveStarted -= OnWaveStarted;
             waveManager.WaveCompleted -= OnWaveCompleted;
             playerHealth.Damaged -= OnPlayerDamaged;
             playerShooting.Fired -= OnFired;
@@ -87,9 +92,15 @@ namespace Tilemania.Audio
             Play(library.EnemyDeath);
         }
 
+        private void OnWaveStarted(int wave)
+        {
+            CrossfadeMusic(library.WaveMusic, library.WaveMusicPitch);
+        }
+
         private void OnWaveCompleted(int wave)
         {
             Play(library.WaveComplete);
+            CrossfadeMusic(library.PreparationMusic, 1f);
         }
 
         private void OnPlayerDamaged(Vector2 hitFrom)
@@ -110,6 +121,47 @@ namespace Tilemania.Audio
         private void OnButtonClicked()
         {
             Play(library.Click);
+        }
+
+        private void CrossfadeMusic(AudioClip clip, float pitch)
+        {
+            if (musicFade != null)
+            {
+                StopCoroutine(musicFade);
+            }
+            musicFade = StartCoroutine(Crossfade(clip, pitch));
+        }
+
+        private IEnumerator Crossfade(AudioClip clip, float pitch)
+        {
+            (musicSource, fadingMusicSource) = (fadingMusicSource, musicSource);
+
+            musicSource.clip = clip;
+            musicSource.pitch = pitch;
+            musicSource.volume = 0f;
+            musicSource.Play();
+
+            float fadingStartVolume = fadingMusicSource.volume;
+            float duration = library.MusicFadeDuration;
+
+            for (float elapsed = 0f; elapsed < duration; elapsed += Time.unscaledDeltaTime)
+            {
+                float progress = elapsed / duration;
+                musicSource.volume = progress * library.MusicVolume;
+                fadingMusicSource.volume = (1f - progress) * fadingStartVolume;
+                yield return null;
+            }
+
+            musicSource.volume = library.MusicVolume;
+            fadingMusicSource.Stop();
+            musicFade = null;
+        }
+
+        private AudioSource CreateMusicSource()
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.loop = true;
+            return source;
         }
 
         private void Play(AudioClip clip)
