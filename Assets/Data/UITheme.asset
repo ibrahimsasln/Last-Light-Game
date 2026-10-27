@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546904299e83ab429ad867a33fbe524, type: 3}
   m_Name: UITheme
   m_EditorClassIdentifier: Assembly-CSharp::Tilemania.UI.UITheme
-  font: {fileID: 11400000, guid: b763d59e6bd80a541a6452c57b87225f, type: 2}
+  font: {fileID: 11400000, guid: c07cb26d27001c0419eba05c17f0e46e, type: 2}
   titleSize: 64
   textSize: 32
   buttonTextSize: 32
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.6}
-  panelColor: {r: 0.12, g: 0.1, b: 0.16, a: 0.95}
-  buttonColor: {r: 0.33, g: 0.25, b: 0.42, a: 1}
-  textColor: {r: 1, g: 1, b: 1, a: 1}
-  accentColor: {r: 1, g: 0.84, b: 0.3, a: 1}
+  overlayColor: {r: 0.039215688, g: 0.039215688, b: 0.078431375, a: 0.6}
+  panelColor: {r: 0.12, g: 0.16862746, b: 0.14117648, a: 0.95}
+  buttonColor: {r: 0.47843137, g: 0.32156864, b: 0.19607843, a: 1}
+  textColor: {r: 0.9490196, g: 0.9019608, b: 0.7882353, a: 1}
+  accentColor: {r: 0.9607843, g: 0.77254903, b: 0.25882354, a: 1}
+  panelSprite: {fileID: -8390244, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
+  buttonSprite: {fileID: -1010605625, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
+  pixelsPerUnitMultiplier: 0.926
   windowWidth: 760
   buttonHeight: 72
   padding: 40
