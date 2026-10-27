@@ -1,18 +1,20 @@
 # Last Light
 
-A 2D wave-survival platformer made with Unity 6. When the magic stone's light goes out, the night brings endless waves of zombies, slimes and ghosts. Survive, collect coins, and spend them on upgrades between waves.
+<!-- Play in the browser: https://<your-itch-username>.itch.io/last-light -->
+<!-- ![Gameplay](docs/gameplay.gif) -->
 
-<!-- Add a gameplay GIF here: ![Gameplay](docs/gameplay.gif) -->
-<!-- Play in the browser: https://<your-itch-username>.itch.io/tilemania -->
+A small 2D wave-survival platformer I made in Unity 6.
 
-## Gameplay
+It started as the TileVania project from the GameDev.tv Unity 2D course. After the course I kept working on it and turned it into a different game: you defend a village at night against waves of zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
 
-- **Endless waves.** Every wave has more enemies, and they get tougher and faster. Elite enemies (red) appear more often over time and drop extra coins.
-- **Three enemy types.** Zombies chase you and jump over walls, slimes wait and leap at you, ghosts fly through the level.
-- **Upgrade shops between waves.**
-  - *Statue of Vigor:* max health, move speed, dodge, heal
-  - *Blacksmith's Anvil:* fire rate, damage, multi-shot
-- **Mouse aiming** with a rotating gun, knockback, invulnerability frames and a dodge dash.
+## How it plays
+
+You start a wave by touching the magic stone. The sky gets darker, the music changes and enemies start coming in from the edges of the map. When the last one dies the light comes back, the leftover coins fly to you and you can visit the two shops:
+
+- the statue sells max health, move speed, a dodge and healing
+- the anvil sells fire rate, damage and multi-shot
+
+There is no level cap, but prices go up every time you buy something. Waves keep getting bigger and enemies get more health, damage and speed, so every run ends at some point. Some enemies spawn as red elites with more health and more coins. Your ten best runs are saved locally.
 
 ## Controls
 
@@ -20,45 +22,47 @@ A 2D wave-survival platformer made with Unity 6. When the magic stone's light go
 |---|---|
 | Move | A / D |
 | Jump | Space |
-| Aim / Shoot | Mouse / Left click |
-| Interact (start wave, open shop) | E |
-| Dodge (after unlocking) | Shift |
-| Pause | Esc / P |
+| Aim and shoot | Mouse |
+| Start wave / open shop | E |
+| Dodge (after buying it) | Shift |
+| Pause | Esc or P |
 
-## Technical highlights
+## Code
 
-- **Component-based player:** movement, shooting, aiming, health, wallet and upgrades are separate components with single responsibilities.
-- **Event-driven communication:** systems talk through C# events (`Health.Died`, `WaveManager.WaveCompleted`, `PlayerWallet.CoinsChanged`), so UI, audio and lighting react without being referenced by gameplay code.
-- **Data-driven design with ScriptableObjects:** wave difficulty, the enemy spawn table, every upgrade, shop catalogs, audio and UI theme are assets that can be tuned without touching code.
-- **Strategy pattern for upgrades:** each upgrade is a small `UpgradeDefinition` subclass; adding a new upgrade means adding a class and an asset.
-- **Interfaces for swappable behaviour:** `IEnemyMovement` (walking, jumping, flying enemies) and `IInteractable` (wave stone, shops).
-- **State machines** for the game flow (menu, playing, shopping, paused, game over), the slime behaviour and the wave loop.
-- **Explicit dependencies:** scene references are assigned in the Inspector and spawned enemies receive theirs through `Initialize(...)`.
-- **Code-built UI:** menus and shop screens are generated at runtime from data by a small UI factory.
+Most of my time on this project went into the code structure, so a few notes:
 
-## Project structure
+- The player is split into small components (movement, aiming, shooting, health, wallet, upgrades) instead of one big Player script.
+- Systems talk through C# events. For example `WaveManager` raises `WaveStarted` and `WaveCompleted`, and the wave text, the lighting and the music listen to them. The wave manager doesn't know any of them exist.
+- Wave difficulty, the enemy spawn table, upgrades and shop contents are ScriptableObjects, so balancing doesn't need code changes. Each upgrade type is a small subclass of `UpgradeDefinition`.
+- Enemies share one `Enemy` and `Health` component and only differ in their movement, which is behind an `IEnemyMovement` interface (walking, jumping and flying). The stone and the shops use an `IInteractable` interface.
+- There are no singletons or `Find` calls. Scene objects are linked in the Inspector and spawned enemies get what they need through an `Initialize` method.
+- Menus and shop windows are built from code at runtime.
 
+```mermaid
+flowchart LR
+    Stone[WaveStone] --> WM[WaveManager]
+    WM --> Enemy
+    Enemy -- Died --> WM
+    Enemy --> Dropper[CoinDropper]
+    Dropper --> Wallet[PlayerWallet]
+    WM -. wave events .-> Listeners[WaveDisplay / WaveLighting / AudioManager]
+    Shop[UpgradeShop] --> GM[GameManager]
+    GM --> Upgrades[PlayerUpgrades]
+    Upgrades --> Wallet
 ```
-Assets/
-  Scripts/      Audio, Combat, Coin, Core, Enemies, Environment, Interaction, Managers, Player, UI, Upgrades
-  Data/         WaveSettings, upgrades, shop catalogs, audio library, UI theme
-  Prefabs/      Player, enemies, managers, environment
-  Scenes/       Level1
-  ThirdParty/   Licensed art and audio (not included in this repository)
-```
 
-## Running the project
+Scripts are in `Assets/Scripts`, grouped by feature, and the tunable data is in `Assets/Data`.
 
-1. Open the project with **Unity 6000.3** (URP 2D).
-2. Third-party assets are not redistributed in this repository. Download the packs listed below and place them under `Assets/ThirdParty/`.
-3. Open `Assets/Scenes/Level1.unity` and press Play.
+## Running it
+
+Open the project with Unity 6000.3 and open `Assets/Scenes/Level1.unity`.
+
+The art and audio packs are not included in this repository because their licenses don't allow redistribution. To run the project you need to download them (links below) and put them in `Assets/ThirdParty/`.
 
 ## Credits
 
-Art and audio are used under their respective licenses:
-
-- **Pixel Art Platformer – Village Props** by [Cainos](https://cainos.itch.io/pixel-art-platformer-village-props)
-- **Background layers** by [GandalfHardcore](https://gandalfhardcore.itch.io/)
-- **Undead Survivor Assets Pack** by [Goldmetal](https://assetstore.unity.com/packages/2d/undead-survivor-assets-pack-238068) (characters, enemies, sounds, font)
-- Course sprites from **GameDev.tv**
-- Coin pickup sound from [Pixabay](https://pixabay.com/)
+- Village props and tiles: [Cainos](https://cainos.itch.io/pixel-art-platformer-village-props)
+- Background: [GandalfHardcore](https://gandalfhardcore.itch.io/)
+- Characters, enemies, music, sound effects and font: [Undead Survivor Assets Pack by Goldmetal](https://assetstore.unity.com/packages/2d/undead-survivor-assets-pack-238068)
+- Some sprites from the GameDev.tv course
+- Coin sound from [Pixabay](https://pixabay.com/)
