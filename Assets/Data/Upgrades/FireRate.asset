@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: Fire Rate
   description: Shoot 15% faster
   baseCost: 15
-  costIncreasePerLevel: 10
-  maxLevel: 6
+  costGrowth: 1.35
+  maxLevel: 0
   cooldownMultiplier: 0.85

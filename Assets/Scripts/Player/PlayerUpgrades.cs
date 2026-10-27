@@ -33,7 +33,7 @@ namespace Tilemania.Player
         public bool CanPurchase(UpgradeDefinition upgrade)
         {
             int level = GetLevel(upgrade);
-            return !upgrade.IsMaxed(level) && upgrade.CanApply(this) && Wallet.Coins >= upgrade.GetCost(level);
+            return !upgrade.IsMaxed(level, this) && upgrade.CanApply(this) && Wallet.Coins >= upgrade.GetCost(level);
         }
 
         public bool TryPurchase(UpgradeDefinition upgrade)

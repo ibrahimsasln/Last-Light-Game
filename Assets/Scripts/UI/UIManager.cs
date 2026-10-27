@@ -74,7 +74,7 @@ namespace Tilemania.UI
             foreach (UpgradeDefinition upgrade in catalog.Upgrades)
             {
                 int level = player.GetLevel(upgrade);
-                string price = upgrade.IsMaxed(level) ? "MAX" : $"{upgrade.GetCost(level)} coins";
+                string price = upgrade.IsMaxed(level, player) ? "MAX" : $"{upgrade.GetCost(level)} coins";
                 string label = $"{upgrade.DisplayName} {upgrade.GetLevelText(level)}  -  {price}\n<size=65%>{upgrade.Description}</size>";
 
                 window.AddButton(label, () => onBuy(upgrade), player.CanPurchase(upgrade), 1.5f);

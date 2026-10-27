@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: Move Speed
   description: +10% move speed
   baseCost: 12
-  costIncreasePerLevel: 8
-  maxLevel: 5
+  costGrowth: 1.4
+  maxLevel: 0
   speedBonus: 0.1

@@ -15,5 +15,5 @@ MonoBehaviour:
   displayName: Dodge
   description: Press Shift to dash through enemies
   baseCost: 40
-  costIncreasePerLevel: 0
+  costGrowth: 1
   maxLevel: 1

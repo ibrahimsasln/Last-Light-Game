@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: Max Health
   description: +1 max health
   baseCost: 15
-  costIncreasePerLevel: 10
-  maxLevel: 5
+  costGrowth: 1.35
+  maxLevel: 0
   amount: 1

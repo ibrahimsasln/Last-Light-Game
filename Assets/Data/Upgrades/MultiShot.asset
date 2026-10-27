@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: Multi Shot
   description: +1 bullet per shot
   baseCost: 50
-  costIncreasePerLevel: 50
-  maxLevel: 2
+  costGrowth: 1.8
+  maxLevel: 0
   extraProjectiles: 1

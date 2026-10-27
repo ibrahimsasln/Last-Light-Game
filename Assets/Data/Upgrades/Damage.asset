@@ -15,6 +15,6 @@ MonoBehaviour:
   displayName: Damage
   description: +1 bullet damage
   baseCost: 20
-  costIncreasePerLevel: 15
-  maxLevel: 5
+  costGrowth: 1.4
+  maxLevel: 0
   amount: 1

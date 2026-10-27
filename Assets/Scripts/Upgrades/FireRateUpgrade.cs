@@ -8,6 +8,11 @@ namespace Tilemania.Upgrades
     {
         [SerializeField, Range(0.1f, 1f)] float cooldownMultiplier = 0.85f;
 
+        protected override bool HasReachedLimit(PlayerUpgrades player)
+        {
+            return player.Shooting.IsAtMinCooldown;
+        }
+
         public override void Apply(PlayerUpgrades player)
         {
             player.Shooting.MultiplyCooldown(cooldownMultiplier);

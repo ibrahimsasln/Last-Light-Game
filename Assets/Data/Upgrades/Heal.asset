@@ -15,5 +15,5 @@ MonoBehaviour:
   displayName: Heal
   description: Restore all health
   baseCost: 10
-  costIncreasePerLevel: 5
+  costGrowth: 1.25
   maxLevel: 0

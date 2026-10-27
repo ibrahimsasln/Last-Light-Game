@@ -21,6 +21,8 @@ namespace Tilemania.Player
 
         public event Action Fired;
 
+        public bool IsAtMinCooldown => fireCooldown <= minFireCooldown;
+
         private void Awake()
         {
             health = GetComponent<Health>();
