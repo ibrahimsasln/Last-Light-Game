@@ -1,7 +1,8 @@
 # Last Light
 
+<img src="docs/cover.png" alt="Last Light" width="420">
+
 <!-- Play in the browser: https://<your-itch-username>.itch.io/last-light -->
-<!-- ![Gameplay](docs/gameplay.gif) -->
 
 A small 2D wave-survival platformer I made in Unity 6.
 
@@ -15,6 +16,12 @@ You start a wave by touching the magic stone. The sky gets darker, the music cha
 - the anvil sells fire rate, damage and multi-shot
 
 There is no level cap, but prices go up every time you buy something. Waves keep getting bigger and enemies get more health, damage and speed, so every run ends at some point. Some enemies spawn as red elites with more health and more coins. Your ten best runs are saved locally.
+
+## Screenshots
+
+![Wave 1](docs/gameplay.png)
+
+<img src="docs/menu.png" alt="Main menu" width="32%"> <img src="docs/shop-statue.png" alt="Statue shop" width="32%"> <img src="docs/shop-anvil.png" alt="Anvil shop" width="32%">
 
 ## Controls
 
