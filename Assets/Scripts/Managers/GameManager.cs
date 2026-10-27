@@ -13,7 +13,6 @@ namespace Tilemania.Managers
 {
     public class GameManager : MonoBehaviour
     {
-        const string BestWaveKey = "BestWave";
         const string GameplayActionMap = "Player";
         const string MenuActionMap = "UI";
 
@@ -30,16 +29,11 @@ namespace Tilemania.Managers
 
         UIManager ui;
         AudioManager audioManager;
+        HighScoreTable highScores;
         ShopCatalog openShop;
 
         public GameState State { get; private set; }
         public event Action<GameState> StateChanged;
-
-        static int BestWave
-        {
-            get => PlayerPrefs.GetInt(BestWaveKey, 0);
-            set => PlayerPrefs.SetInt(BestWaveKey, value);
-        }
 
         static bool CanQuit => Application.platform != RuntimePlatform.WebGLPlayer;
 
@@ -47,6 +41,7 @@ namespace Tilemania.Managers
         {
             ui = GetComponent<UIManager>();
             audioManager = GetComponent<AudioManager>();
+            highScores = new HighScoreTable();
         }
 
         private void OnEnable()
@@ -105,7 +100,8 @@ namespace Tilemania.Managers
 
         private void ShowMainMenuScreen()
         {
-            ui.ShowMainMenu(BestWave, StartPlaying, () => ShowSettings(ShowMainMenuScreen), CanQuit ? Quit : null);
+            ui.ShowMainMenu(highScores.BestWave, StartPlaying, () => ShowSettings(ShowMainMenuScreen),
+                () => ShowHighScores(-1, ShowMainMenuScreen), CanQuit ? Quit : null);
         }
 
         private void StartPlaying()
@@ -147,7 +143,11 @@ namespace Tilemania.Managers
 
         private void ShowSettings(Action onBack)
         {
-            ui.ShowSettings(audioManager.Volume, volume => audioManager.Volume = volume, onBack);
+            ui.ShowSettings(audioManager.Volume, volume => audioManager.Volume = volume, () =>
+            {
+                audioManager.SaveSettings();
+                onBack();
+            });
         }
 
         private void OnPlayerDied()
@@ -160,15 +160,22 @@ namespace Tilemania.Managers
             yield return new WaitForSeconds(gameOverDelay);
 
             int wave = waveManager.CurrentWave;
-            bool isNewBest = wave > BestWave;
-            if (isNewBest)
-            {
-                BestWave = wave;
-            }
+            int rank = highScores.Add(wave);
 
             SetState(GameState.GameOver);
             audioManager.PlayGameOver();
-            ui.ShowGameOver(wave, BestWave, isNewBest, Restart, ReturnToMainMenu);
+            ShowGameOverScreen(wave, rank);
+        }
+
+        private void ShowGameOverScreen(int wave, int rank)
+        {
+            ui.ShowGameOver(wave, rank, highScores.BestWave, Restart,
+                () => ShowHighScores(rank, () => ShowGameOverScreen(wave, rank)), ReturnToMainMenu);
+        }
+
+        private void ShowHighScores(int highlightedRank, Action onBack)
+        {
+            ui.ShowHighScores(highScores.Entries, highlightedRank, onBack);
         }
 
         private void Restart()

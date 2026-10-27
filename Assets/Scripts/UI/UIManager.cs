@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Tilemania.Managers;
 using Tilemania.Player;
 using Tilemania.Upgrades;
 
@@ -27,12 +29,13 @@ namespace Tilemania.UI
             window.ButtonClicked -= OnWindowButtonClicked;
         }
 
-        public void ShowMainMenu(int bestWave, Action onPlay, Action onSettings, Action onQuit)
+        public void ShowMainMenu(int bestWave, Action onPlay, Action onSettings, Action onHighScores, Action onQuit)
         {
             window.Open("TILEMANIA");
             window.AddText(bestWave > 0 ? $"Best wave: {bestWave}" : "Survive as many waves as you can!");
             window.AddText("A / D: move   Space: jump   Mouse: aim and shoot   E: interact   Esc / P: pause", theme.TextSize * 0.6f, theme.TextColor);
             window.AddButton("Play", onPlay);
+            window.AddButton("High Scores", onHighScores);
             window.AddButton("Settings", onSettings);
 
             if (onQuit != null)
@@ -49,13 +52,32 @@ namespace Tilemania.UI
             window.AddButton("Main Menu", onMainMenu);
         }
 
-        public void ShowGameOver(int wave, int bestWave, bool isNewBest, Action onRestart, Action onMainMenu)
+        public void ShowGameOver(int wave, int rank, int bestWave, Action onRestart, Action onHighScores, Action onMainMenu)
         {
             window.Open("Game Over");
             window.AddText($"You reached wave {wave}");
-            window.AddText(isNewBest ? "New best!" : $"Best wave: {bestWave}", theme.TextSize, theme.AccentColor);
+            window.AddText(GetRankText(rank, bestWave), theme.TextSize, theme.AccentColor);
             window.AddButton("Play Again", onRestart);
+            window.AddButton("High Scores", onHighScores);
             window.AddButton("Main Menu", onMainMenu);
+        }
+
+        public void ShowHighScores(IReadOnlyList<HighScoreEntry> entries, int highlightedRank, Action onBack)
+        {
+            window.Open("High Scores");
+
+            if (entries.Count == 0)
+            {
+                window.AddText("No runs yet. Go set a record!");
+            }
+
+            for (int i = 0; i < entries.Count; i++)
+            {
+                Color color = i == highlightedRank ? theme.AccentColor : theme.TextColor;
+                window.AddText($"{i + 1}.  Wave {entries[i].Wave}   <size=70%>{entries[i].Date}</size>", theme.TextSize, color);
+            }
+
+            window.AddButton("Back", onBack);
         }
 
         public void ShowSettings(float volume, Action<float> onVolumeChanged, Action onBack)
@@ -86,6 +108,13 @@ namespace Tilemania.UI
         public void HideMenu()
         {
             window.Close();
+        }
+
+        private static string GetRankText(int rank, int bestWave)
+        {
+            if (rank == 0) return "New best!";
+            if (rank > 0) return $"#{rank + 1} on your high scores";
+            return $"Best wave: {bestWave}";
         }
 
         private void OnWindowButtonClicked()

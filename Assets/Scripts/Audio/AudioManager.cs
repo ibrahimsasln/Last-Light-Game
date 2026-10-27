@@ -72,6 +72,11 @@ namespace Tilemania.Audio
             ui.ButtonClicked -= OnButtonClicked;
         }
 
+        public void SaveSettings()
+        {
+            PlayerPrefs.Save();
+        }
+
         public void PlayGameOver()
         {
             Play(library.GameOver);
