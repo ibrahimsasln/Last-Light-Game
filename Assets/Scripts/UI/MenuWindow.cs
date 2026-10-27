@@ -27,7 +27,7 @@ namespace Tilemania.UI
 
             content = UIFactory.CreateRect("Window", overlay);
             content.sizeDelta = new Vector2(theme.WindowWidth, 0f);
-            content.gameObject.AddComponent<Image>().color = theme.PanelColor;
+            UIFactory.AddImage(content.gameObject, theme, theme.PanelSprite, theme.PanelColor);
 
             VerticalLayoutGroup layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
             layout.padding = new RectOffset(theme.Padding, theme.Padding, theme.Padding, theme.Padding);

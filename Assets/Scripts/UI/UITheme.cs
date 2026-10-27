@@ -19,6 +19,11 @@ namespace Tilemania.UI
         [SerializeField] Color textColor = Color.white;
         [SerializeField] Color accentColor = new Color(1f, 0.84f, 0.3f, 1f);
 
+        [Header("Sprites")]
+        [SerializeField] Sprite panelSprite;
+        [SerializeField] Sprite buttonSprite;
+        [SerializeField, Min(0.01f)] float pixelsPerUnitMultiplier = 1f;
+
         [Header("Layout")]
         [SerializeField] float windowWidth = 760f;
         [SerializeField] float buttonHeight = 72f;
@@ -34,6 +39,9 @@ namespace Tilemania.UI
         public Color ButtonColor => buttonColor;
         public Color TextColor => textColor;
         public Color AccentColor => accentColor;
+        public Sprite PanelSprite => panelSprite;
+        public Sprite ButtonSprite => buttonSprite;
+        public float PixelsPerUnitMultiplier => pixelsPerUnitMultiplier;
         public float WindowWidth => windowWidth;
         public float ButtonHeight => buttonHeight;
         public int Padding => padding;

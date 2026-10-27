@@ -38,6 +38,21 @@ namespace Tilemania.UI
             rect.offsetMax = Vector2.zero;
         }
 
+        public static Image AddImage(GameObject target, UITheme theme, Sprite sprite, Color color)
+        {
+            Image image = target.AddComponent<Image>();
+            image.color = color;
+
+            if (sprite != null)
+            {
+                image.sprite = sprite;
+                image.type = Image.Type.Sliced;
+                image.pixelsPerUnitMultiplier = theme.PixelsPerUnitMultiplier;
+            }
+
+            return image;
+        }
+
         public static TextMeshProUGUI CreateText(Transform parent, UITheme theme, string text, float size, Color color)
         {
             TextMeshProUGUI label = CreateRect("Text", parent).gameObject.AddComponent<TextMeshProUGUI>();
@@ -58,8 +73,7 @@ namespace Tilemania.UI
             RectTransform rect = CreateRect("Button", parent);
             rect.gameObject.AddComponent<LayoutElement>().preferredHeight = height;
 
-            Image background = rect.gameObject.AddComponent<Image>();
-            background.color = theme.ButtonColor;
+            Image background = AddImage(rect.gameObject, theme, theme.ButtonSprite, theme.ButtonColor);
 
             Button button = rect.gameObject.AddComponent<Button>();
             button.targetGraphic = background;
