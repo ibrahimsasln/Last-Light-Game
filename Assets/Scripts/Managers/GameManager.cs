@@ -192,7 +192,11 @@ namespace Tilemania.Managers
 
         private void Quit()
         {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
+#endif
         }
 
         private void ReloadScene()
