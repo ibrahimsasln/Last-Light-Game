@@ -33,7 +33,6 @@ namespace Tilemania.UI
         {
             window.Open("LAST LIGHT");
             window.AddText(bestWave > 0 ? $"Best wave: {bestWave}" : "Survive as many waves as you can!");
-            window.AddText("A / D: move   Space: jump   Mouse: aim and shoot   E: interact   Esc / P: pause", theme.TextSize * 0.6f, theme.TextColor);
             window.AddButton("Play", onPlay);
             window.AddButton("High Scores", onHighScores);
             window.AddButton("Settings", onSettings);
