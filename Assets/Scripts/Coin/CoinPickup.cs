@@ -1,25 +1,27 @@
-using System;
 using UnityEngine;
+using UnityEngine.Pool;
+using Tilemania.Core;
 using Tilemania.Player;
 
 namespace Tilemania.Coin
 {
-    public class CoinPickup : MonoBehaviour
+    public class CoinPickup : MonoBehaviour, IDespawnable
     {
         [SerializeField] AudioClip coinPickupSFX;
         [SerializeField] float attractSpeed = 12f;
 
         Rigidbody2D coinRB;
         Collider2D coinCollider;
+        IObjectPool<CoinPickup> pool;
         Transform attractTarget;
-        bool wasCollected;
-
-        public event Action<CoinPickup> Collected;
+        float defaultGravityScale;
+        bool isDespawned;
 
         private void Awake()
         {
             coinRB = GetComponent<Rigidbody2D>();
             coinCollider = GetComponent<Collider2D>();
+            defaultGravityScale = coinRB.gravityScale;
         }
 
         private void FixedUpdate()
@@ -28,6 +30,23 @@ namespace Tilemania.Coin
 
             Vector2 toTarget = attractTarget.position - transform.position;
             coinRB.linearVelocity = toTarget.normalized * attractSpeed;
+        }
+
+        public void SetPool(IObjectPool<CoinPickup> pool)
+        {
+            this.pool = pool;
+        }
+
+        public void Drop(Vector2 position, Vector2 impulse)
+        {
+            isDespawned = false;
+            attractTarget = null;
+            coinRB.gravityScale = defaultGravityScale;
+            coinCollider.isTrigger = false;
+
+            transform.position = position;
+            coinRB.linearVelocity = Vector2.zero;
+            coinRB.AddForce(impulse, ForceMode2D.Impulse);
         }
 
         public void AttractTo(Transform target)
@@ -49,13 +68,19 @@ namespace Tilemania.Coin
 
         private void TryCollect(GameObject other)
         {
-            if (wasCollected || !other.TryGetComponent(out PlayerWallet wallet)) return;
-            wasCollected = true;
+            if (isDespawned || !other.TryGetComponent(out PlayerWallet wallet)) return;
 
             wallet.Add(1);
             AudioSource.PlayClipAtPoint(coinPickupSFX, transform.position);
-            Collected?.Invoke(this);
-            Destroy(gameObject);
+            Despawn();
+        }
+
+        public void Despawn()
+        {
+            if (isDespawned) return;
+            isDespawned = true;
+
+            pool.Release(this);
         }
     }
 }

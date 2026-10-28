@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using Tilemania.Managers;
 
 namespace Tilemania.Coin
 {
     public class CoinDropper : MonoBehaviour
     {
-        [SerializeField] GameObject coinPrefab;
+        [SerializeField] CoinPickup coinPrefab;
         [SerializeField] float minDropForce = 3f;
         [SerializeField] float maxDropForce = 6f;
 
@@ -14,7 +15,18 @@ namespace Tilemania.Coin
         [SerializeField] WaveManager waveManager;
         [SerializeField] Transform player;
 
+        [Header("Pool")]
+        [SerializeField] int poolCapacity = 30;
+        [SerializeField] int maxPoolSize = 200;
+
         readonly List<CoinPickup> activeCoins = new List<CoinPickup>();
+        IObjectPool<CoinPickup> coinPool;
+
+        private void Awake()
+        {
+            coinPool = new ObjectPool<CoinPickup>(CreateCoin, OnGetCoin, OnReleaseCoin, OnDestroyCoin,
+                defaultCapacity: poolCapacity, maxSize: maxPoolSize);
+        }
 
         private void OnEnable()
         {
@@ -30,28 +42,39 @@ namespace Tilemania.Coin
         {
             for (int i = 0; i < count; i++)
             {
-                GameObject coin = Instantiate(coinPrefab, position, Quaternion.identity);
-
                 Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(0.5f, 1f)).normalized;
                 float force = Random.Range(minDropForce, maxDropForce);
-                coin.GetComponent<Rigidbody2D>().AddForce(direction * force, ForceMode2D.Impulse);
 
-                CoinPickup pickup = coin.GetComponent<CoinPickup>();
-                pickup.Collected += OnCoinCollected;
-                activeCoins.Add(pickup);
+                coinPool.Get().Drop(position, direction * force);
             }
         }
 
-        private void OnCoinCollected(CoinPickup coin)
+        private CoinPickup CreateCoin()
         {
-            coin.Collected -= OnCoinCollected;
+            CoinPickup coin = Instantiate(coinPrefab);
+            coin.SetPool(coinPool);
+            return coin;
+        }
+
+        private void OnGetCoin(CoinPickup coin)
+        {
+            coin.gameObject.SetActive(true);
+            activeCoins.Add(coin);
+        }
+
+        private void OnReleaseCoin(CoinPickup coin)
+        {
+            coin.gameObject.SetActive(false);
             activeCoins.Remove(coin);
+        }
+
+        private void OnDestroyCoin(CoinPickup coin)
+        {
+            Destroy(coin.gameObject);
         }
 
         private void OnWaveCompleted(int wave)
         {
-            activeCoins.RemoveAll(coin => coin == null);
-
             foreach (CoinPickup coin in activeCoins)
             {
                 coin.AttractTo(player);

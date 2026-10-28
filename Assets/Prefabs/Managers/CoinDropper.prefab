@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29223de34574464d830195b8d7e2a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinDropper
-  coinPrefab: {fileID: 7609266987185078659, guid: 9216ea8bb5c13914cad2456bf01f84c9, type: 3}
+  coinPrefab: {fileID: 3926470970240043892, guid: 9216ea8bb5c13914cad2456bf01f84c9, type: 3}
   coinCount: 3

@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - coinPrefab: {fileID: 7609266987185078659, guid: 9216ea8bb5c13914cad2456bf01f84c9, type: 3}
+  - coinPrefab: {fileID: 3926470970240043892, guid: 9216ea8bb5c13914cad2456bf01f84c9, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
