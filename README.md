@@ -58,6 +58,7 @@ Most of my time on this project went into the code structure. The patterns I use
 | Template method | `BetweenWavesInteractable` handles the shared logic for the stone and the shops; each one only implements `OnInteract`. |
 | Data-driven design | Wave difficulty, the enemy spawn table, upgrades and shop contents are ScriptableObjects, so balancing needs no code changes. |
 | Dependency injection | No singletons or `Find` calls. Scene objects are linked in the Inspector, spawned enemies get what they need through `Initialize`. |
+| Object pool | Bullets, coins and enemies are reused with `UnityEngine.Pool` instead of being created and destroyed, which avoids GC spikes. `EnemyPool` keeps one pool per enemy type, and enemies reset their health, damage and coins from base values when they come back from the pool. |
 | Factory | `UIFactory` builds the menus and shop windows from code at runtime. |
 
 ```mermaid
