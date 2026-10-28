@@ -38,7 +38,7 @@ There is no level cap, but prices go up every time you buy something. Waves keep
 
 Scripts are in `Assets/Scripts` with one folder (and namespace) per feature. Balancing data is in `Assets/Data`.
 
-**Waves.** `WaveManager` is a small state machine, either preparing or in a wave. Everything it needs comes from a `WaveSettings` ScriptableObject: enemy count, spawn rate, how much enemies scale each wave, the elite chance and a weighted spawn table. Tuning difficulty never means touching code. When a wave starts or ends it raises `WaveStarted` or `WaveCompleted`. The wave text, the lighting and the music subscribe to those events, and `WaveManager` has no idea they exist.
+**Waves.** `WaveManager` is a small state machine, either preparing or in a wave. Everything it needs comes from a `WaveSettings` ScriptableObject: enemy count, spawn rate, how much enemies scale each wave, the elite chance and a weighted spawn table. Tuning difficulty never means touching code. When a wave starts or ends it raises `WaveStarted` or `WaveCompleted`. The wave text, the lighting and the music subscribe to those events, and `WaveManager` has no idea they exist. Most of the game is wired this way (observer pattern with plain C# events), which keeps systems from depending on each other directly.
 
 **Enemies.** Zombies, slimes and ghosts all use the same `Enemy` and `Health` components. The only thing that changes is movement, which sits behind an `IEnemyMovement` interface. Zombies walk and jump over walls, slimes leap at you (a little state machine of its own) and ghosts fly through walls. A new enemy type is mostly a new movement script plus a prefab.
 
