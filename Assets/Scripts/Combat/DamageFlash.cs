@@ -27,6 +27,12 @@ namespace Tilemania.Combat
         private void OnDisable()
         {
             health.Damaged -= OnDamaged;
+
+            if (flashRoutine != null)
+            {
+                spriteRenderer.color = baseColor;
+                flashRoutine = null;
+            }
         }
 
         private void OnDamaged(Vector2 hitFrom)

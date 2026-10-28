@@ -21,7 +21,6 @@ namespace Tilemania.Enemies
         {
             zombieRB = GetComponent<Rigidbody2D>();
             groundLayer = LayerMask.GetMask(LayerNames.Ground);
-
         }
 
         private void FixedUpdate()
@@ -47,6 +46,7 @@ namespace Tilemania.Enemies
             playerHealth = target;
             playerTransform = target.transform;
             this.speedMultiplier = speedMultiplier;
+            zombieRB.linearVelocity = Vector2.zero;
         }
 
         private bool IsGrounded()

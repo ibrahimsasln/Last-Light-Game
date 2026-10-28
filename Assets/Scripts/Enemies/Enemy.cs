@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Pool;
 using Tilemania.Coin;
 using Tilemania.Combat;
 using Tilemania.Core;
@@ -15,6 +16,11 @@ namespace Tilemania.Enemies
         SpriteRenderer spriteRenderer;
         IEnemyMovement movement;
         CoinDropper coinDropper;
+        IObjectPool<Enemy> pool;
+
+        int baseMaxHealth;
+        int baseContactDamage;
+        int baseCoinDropCount;
 
         public event Action<Enemy> Died;
 
@@ -23,6 +29,10 @@ namespace Tilemania.Enemies
             health = GetComponent<Health>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             movement = GetComponent<IEnemyMovement>();
+
+            baseMaxHealth = health.MaxHealth;
+            baseContactDamage = contactDamage;
+            baseCoinDropCount = coinDropCount;
         }
 
         private void OnEnable()
@@ -35,13 +45,18 @@ namespace Tilemania.Enemies
             health.Died -= OnDied;
         }
 
+        public void SetPool(IObjectPool<Enemy> pool)
+        {
+            this.pool = pool;
+        }
+
         public void Initialize(Health target, CoinDropper coinDropper, WaveStats stats)
         {
             this.coinDropper = coinDropper;
 
-            health.SetMaxHealth(Mathf.RoundToInt(health.MaxHealth * stats.HealthMultiplier));
-            contactDamage += stats.BonusDamage;
-            coinDropCount *= stats.CoinMultiplier;
+            health.ResetHealth(Mathf.RoundToInt(baseMaxHealth * stats.HealthMultiplier));
+            contactDamage = baseContactDamage + stats.BonusDamage;
+            coinDropCount = baseCoinDropCount * stats.CoinMultiplier;
             spriteRenderer.color = stats.Tint;
             movement.Initialize(target, stats.SpeedMultiplier);
         }
@@ -70,7 +85,7 @@ namespace Tilemania.Enemies
         {
             coinDropper.DropCoins(transform.position, coinDropCount);
             Died?.Invoke(this);
-            Destroy(gameObject);
+            pool.Release(this);
         }
     }
 }

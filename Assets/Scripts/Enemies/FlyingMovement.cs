@@ -42,6 +42,7 @@ namespace Tilemania.Enemies
             targetHealth = target;
             targetTransform = target.transform;
             this.speedMultiplier = speedMultiplier;
+            flyingRB.linearVelocity = Vector2.zero;
         }
     }
 }

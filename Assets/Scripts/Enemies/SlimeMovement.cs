@@ -31,9 +31,6 @@ namespace Tilemania.Enemies
         {
             slimeRB = GetComponent<Rigidbody2D>();
             groundLayer = LayerMask.GetMask(LayerNames.Ground);
-
-
-            nextJumpTime = Time.time + waitTime;
         }
 
         private void FixedUpdate()
@@ -101,6 +98,10 @@ namespace Tilemania.Enemies
             playerHealth = target;
             playerTransform = target.transform;
             this.speedMultiplier = speedMultiplier;
+
+            state = State.Waiting;
+            nextJumpTime = Time.time + waitTime;
+            slimeRB.linearVelocity = Vector2.zero;
         }
 
         private bool IsGrounded()

@@ -20,10 +20,15 @@ namespace Tilemania.Managers
         [Header("Spawning")]
         [SerializeField] Transform[] spawnPoints;
 
+        [Header("Pool")]
+        [SerializeField] int poolCapacity = 10;
+        [SerializeField] int maxPoolSize = 50;
+
         State state = State.Preparing;
         int enemiesAlive;
         int enemiesLeftToSpawn;
         Camera mainCamera;
+        EnemyPool enemyPool;
 
         public int CurrentWave { get; private set; }
         public bool IsWaveActive => state == State.InWave;
@@ -35,6 +40,7 @@ namespace Tilemania.Managers
         private void Awake()
         {
             mainCamera = Camera.main;
+            enemyPool = new EnemyPool(poolCapacity, maxPoolSize);
         }
 
         private void OnEnable()
@@ -78,7 +84,7 @@ namespace Tilemania.Managers
             bool isElite = UnityEngine.Random.value < settings.GetEliteChance(CurrentWave);
             Vector2 position = ChooseSpawnPoint().position;
 
-            Enemy enemy = Instantiate(prefab, position, Quaternion.identity);
+            Enemy enemy = enemyPool.Get(prefab, position);
             enemy.Initialize(playerHealth, coinDropper, settings.CreateStats(CurrentWave, isElite));
             enemy.Died += OnEnemyDied;
             enemiesAlive++;

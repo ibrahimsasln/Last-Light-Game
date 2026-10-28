@@ -27,10 +27,12 @@ namespace Tilemania.Combat
             CurrentHealth = maxHealth;
         }
 
-        public void SetMaxHealth(int value)
+        public void ResetHealth(int newMaxHealth)
         {
-            maxHealth = Mathf.Max(1, value);
+            maxHealth = Mathf.Max(1, newMaxHealth);
             CurrentHealth = maxHealth;
+            IsDead = false;
+            invulnerableUntil = 0f;
             HealthChanged?.Invoke(CurrentHealth, maxHealth);
         }
 
