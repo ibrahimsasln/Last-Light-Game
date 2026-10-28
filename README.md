@@ -2,11 +2,11 @@
 
 <img src="docs/cover.png" alt="Last Light" width="420">
 
-**[Play in the browser on itch.io](https://brahimux.itch.io/lastlight)**
+[Play it in the browser on itch.io](https://brahimux.itch.io/lastlight)
 
-A small 2D wave-survival platformer I made in Unity 6.
+A 2D wave-survival platformer made in Unity 6. You defend a village at night against zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
 
-It started as the TileVania project from the GameDev.tv Unity 2D course. After the course I kept working on it and turned it into a different game: you defend a village at night against waves of zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
+It started as the TileVania project from the GameDev.tv Unity 2D course. After finishing the course I kept going and turned it into a different game, mostly to practise structuring a project properly.
 
 ## How it plays
 
@@ -34,47 +34,30 @@ There is no level cap, but prices go up every time you buy something. Waves keep
 | Dodge (after buying it) | Shift |
 | Pause | Esc or P |
 
-## Unity side
+## How it's built
 
-- The level is built with Tilemaps and a Rule Tile. The ground uses a Tilemap Collider merged into a Composite Collider, so it is one collider instead of hundreds of small boxes.
-- The camera is Cinemachine 2 (a State-Driven Camera with a Confiner 2D, so it never shows outside the map).
-- Day and night is done with URP 2D lighting: `WaveLighting` fades a Global Light 2D when a wave starts or ends.
-- Input uses the new Input System with two action maps, one for playing and one for menus. The game switches between them when a menu opens.
-- Player and enemies are animated with Animators, and parameters are cached as hashes instead of strings.
-- The background is made of parallax layers.
-- Music crossfades between two audio sources (one track before waves, one during). The volume setting and the high score table are saved with PlayerPrefs, the high scores as JSON.
-- It is built for WebGL and runs in the browser on itch.io.
+Scripts are in `Assets/Scripts` with one folder (and namespace) per feature. Balancing data is in `Assets/Data`.
 
-## Code
+**Waves.** `WaveManager` is a small state machine, either preparing or in a wave. Everything it needs comes from a `WaveSettings` ScriptableObject: enemy count, spawn rate, how much enemies scale each wave, the elite chance and a weighted spawn table. Tuning difficulty never means touching code. When a wave starts or ends it raises `WaveStarted` or `WaveCompleted`. The wave text, the lighting and the music subscribe to those events, and `WaveManager` has no idea they exist.
 
-Most of my time on this project went into the code structure. The patterns I used and where:
+**Enemies.** Zombies, slimes and ghosts all use the same `Enemy` and `Health` components. The only thing that changes is movement, which sits behind an `IEnemyMovement` interface. Zombies walk and jump over walls, slimes leap at you (a little state machine of its own) and ghosts fly through walls. A new enemy type is mostly a new movement script plus a prefab.
 
-| Pattern | Where |
-|---|---|
-| Component-based design | The player is split into small components (movement, aiming, shooting, health, wallet, upgrades) instead of one big Player script. |
-| Observer (C# events) | `WaveManager` raises `WaveStarted` and `WaveCompleted`. The wave text, lighting and music listen to them, and the wave manager doesn't know they exist. |
-| Strategy | Each upgrade is a small subclass of `UpgradeDefinition`. Enemies share one `Enemy` component and only swap their movement through `IEnemyMovement` (walk, jump, fly). |
-| State machine | Game flow (`GameState`: menu, playing, shopping, paused, game over), waves (preparing / in wave) and the slime's jump. |
-| Template method | `BetweenWavesInteractable` handles the shared logic for the stone and the shops; each one only implements `OnInteract`. |
-| Data-driven design | Wave difficulty, the enemy spawn table, upgrades and shop contents are ScriptableObjects, so balancing needs no code changes. |
-| Dependency injection | No singletons or `Find` calls. Scene objects are linked in the Inspector, spawned enemies get what they need through `Initialize`. |
-| Object pool | Bullets, coins and enemies are reused with `UnityEngine.Pool` instead of being created and destroyed, which avoids GC spikes. `EnemyPool` keeps one pool per enemy type, and enemies reset their health, damage and coins from base values when they come back from the pool. |
-| Factory | `UIFactory` builds the menus and shop windows from code at runtime. |
+**Object pooling.** Bullets, coins and enemies come from `UnityEngine.Pool` instead of being instantiated and destroyed, so nothing piles up for the garbage collector during a wave. Enemies were the tricky part, because a reused enemy keeps the state it died with. `Enemy` saves its base health, damage and coin count in `Awake` and recalculates them in `Initialize`. Without that, an elite zombie going back to the pool would come out as a normal zombie with double health. `EnemyPool` keeps one pool per enemy prefab, and anything that falls off the map is sent back through an `IDespawnable` interface instead of being destroyed.
 
-```mermaid
-flowchart LR
-    Stone[WaveStone] --> WM[WaveManager]
-    WM --> Enemy
-    Enemy -- Died --> WM
-    Enemy --> Dropper[CoinDropper]
-    Dropper --> Wallet[PlayerWallet]
-    WM -. wave events .-> Listeners[WaveDisplay / WaveLighting / AudioManager]
-    Shop[UpgradeShop] --> GM[GameManager]
-    GM --> Upgrades[PlayerUpgrades]
-    Upgrades --> Wallet
-```
+**Upgrades and shops.** Every upgrade is a ScriptableObject that inherits from `UpgradeDefinition` and implements its own `Apply`. Prices grow exponentially and there's no level cap. A shop is just a list of upgrades (`ShopCatalog`), so the statue and the anvil are the same script with different data. The stone and both shops share a base class, `BetweenWavesInteractable`, which blocks interaction during a wave; each one only fills in `OnInteract`.
 
-Scripts are in `Assets/Scripts`, grouped by feature, and the tunable data is in `Assets/Data`.
+**Player.** Instead of one big Player script, the player is a set of small components: movement, aiming, shooting, health, wallet, upgrades and interaction. They talk through events. For example the audio plays the shot sound by listening to `PlayerShooting.Fired`.
+
+**Game flow and UI.** `GameManager` holds a `GameState` (main menu, playing, shopping, paused, game over). Changing state sets the time scale and switches the Input System between the Player and UI action maps. The menus are built from code by `UIFactory`, with the font, colours and sprites coming from a `UITheme` asset.
+
+**Dependencies.** There are no singletons and no `Find` calls. Scene objects are linked in the Inspector, and spawned objects get what they need through an `Initialize` method.
+
+**Unity features used.** Tilemaps with a Rule Tile, and a Composite Collider so the ground is a single collider. Cinemachine with a Confiner 2D to keep the camera inside the map. URP 2D lights for the day and night change. Parallax background layers. Animator parameters cached as hashes. Music crossfading between two audio sources. High scores and the volume setting are saved with PlayerPrefs, the scores as JSON. The build target is WebGL.
+
+## What I'd do next
+
+- Unit tests for the parts that are pure logic, like `WaveSettings` and `HighScoreTable`.
+- Build the menus as prefabs instead of in code, so they can be laid out in the editor.
 
 ## Running it
 
