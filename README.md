@@ -54,11 +54,6 @@ Scripts are in `Assets/Scripts` with one folder (and namespace) per feature. Bal
 
 **Unity features used.** Tilemaps with a Rule Tile, and a Composite Collider so the ground is a single collider. Cinemachine with a Confiner 2D to keep the camera inside the map. URP 2D lights for the day and night change. Parallax background layers. Animator parameters cached as hashes. Music crossfading between two audio sources. High scores and the volume setting are saved with PlayerPrefs, the scores as JSON. The build target is WebGL.
 
-## What I'd do next
-
-- Unit tests for the parts that are pure logic, like `WaveSettings` and `HighScoreTable`.
-- Build the menus as prefabs instead of in code, so they can be laid out in the editor.
-
 ## Running it
 
 Open the project with Unity 6000.3 and open `Assets/Scenes/Level1.unity`.
