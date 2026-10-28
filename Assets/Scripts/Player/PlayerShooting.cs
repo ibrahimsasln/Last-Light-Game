@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 using Tilemania.Combat;
 
 namespace Tilemania.Player
@@ -15,8 +16,13 @@ namespace Tilemania.Player
         [SerializeField] float spreadAngle = 10f;
         [SerializeField] float muzzleOffset = 0.3f;
 
+        [Header("Pool")]
+        [SerializeField] int poolCapacity = 20;
+        [SerializeField] int maxPoolSize = 100;
+
         Health health;
         PlayerAim aim;
+        IObjectPool<Bullet> bulletPool;
         float nextFireTime;
 
         public event Action Fired;
@@ -27,6 +33,30 @@ namespace Tilemania.Player
         {
             health = GetComponent<Health>();
             aim = GetComponent<PlayerAim>();
+            bulletPool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet,
+                defaultCapacity: poolCapacity, maxSize: maxPoolSize);
+        }
+
+        private Bullet CreateBullet()
+        {
+            Bullet bullet = Instantiate(bulletPrefab);
+            bullet.SetPool(bulletPool);
+            return bullet;
+        }
+
+        private void OnGetBullet(Bullet bullet)
+        {
+            bullet.gameObject.SetActive(true);
+        }
+
+        private void OnReleaseBullet(Bullet bullet)
+        {
+            bullet.gameObject.SetActive(false);
+        }
+
+        private void OnDestroyBullet(Bullet bullet)
+        {
+            Destroy(bullet.gameObject);
         }
 
         private void OnAttack(InputValue value)
@@ -42,8 +72,7 @@ namespace Tilemania.Player
                 float angle = (i - (projectileCount - 1) / 2f) * spreadAngle;
                 Vector2 direction = Quaternion.Euler(0f, 0f, angle) * aim.AimDirection;
 
-                Bullet bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
-                bullet.Launch(direction, bulletDamage);
+                bulletPool.Get().Launch(spawnPosition, direction, bulletDamage);
             }
 
             Fired?.Invoke();

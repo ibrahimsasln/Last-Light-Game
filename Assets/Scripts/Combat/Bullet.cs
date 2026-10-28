@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace Tilemania.Combat
 {
@@ -7,27 +8,58 @@ namespace Tilemania.Combat
         [SerializeField] float bulletSpeed = 20f;
         [SerializeField] float bulletLifeTime = 1f;
 
+        Rigidbody2D bulletRB;
+        IObjectPool<Bullet> pool;
         int damage;
-        bool hasHit;
+        float despawnTime;
+        bool isDespawned;
 
-        public void Launch(Vector2 direction, int damage)
+        private void Awake()
+        {
+            bulletRB = GetComponent<Rigidbody2D>();
+        }
+
+        public void SetPool(IObjectPool<Bullet> pool)
+        {
+            this.pool = pool;
+        }
+
+        public void Launch(Vector2 position, Vector2 direction, int damage)
         {
             this.damage = damage;
+            isDespawned = false;
+            despawnTime = Time.time + bulletLifeTime;
+
+            transform.position = position;
             transform.right = direction;
-            GetComponent<Rigidbody2D>().linearVelocity = direction * bulletSpeed;
-            Destroy(gameObject, bulletLifeTime);
+            bulletRB.linearVelocity = direction * bulletSpeed;
+        }
+
+        private void Update()
+        {
+            if (Time.time >= despawnTime)
+            {
+                Despawn();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (hasHit) return;
-            hasHit = true;
+            if (isDespawned) return;
 
             if (other.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damage, transform.position);
             }
-            Destroy(gameObject);
+            Despawn();
+        }
+
+        public void Despawn()
+        {
+            if (isDespawned) return;
+            isDespawned = true;
+
+            pool.Release(this);
         }
     }
 }
