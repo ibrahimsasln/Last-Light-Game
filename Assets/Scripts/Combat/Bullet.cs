@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using Tilemania.Core;
 
 namespace Tilemania.Combat
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IDespawnable
     {
         [SerializeField] float bulletSpeed = 20f;
         [SerializeField] float bulletLifeTime = 1f;
