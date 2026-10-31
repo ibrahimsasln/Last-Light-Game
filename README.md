@@ -36,23 +36,18 @@ There is no level cap, but prices go up every time you buy something. Waves keep
 
 ## How it's built
 
-Scripts are in `Assets/Scripts` with one folder (and namespace) per feature. Balancing data is in `Assets/Data`.
+Scripts are in `Assets/Scripts`, one folder per feature. Balancing data is in `Assets/Data`.
 
-**Waves.** `WaveManager` is a small state machine, either preparing or in a wave. Everything it needs comes from a `WaveSettings` ScriptableObject: enemy count, spawn rate, how much enemies scale each wave, the elite chance and a weighted spawn table. Tuning difficulty never means touching code. When a wave starts or ends it raises `WaveStarted` or `WaveCompleted`. The wave text, the lighting and the music subscribe to those events, and `WaveManager` has no idea they exist. Most of the game is wired this way (observer pattern with plain C# events), which keeps systems from depending on each other directly.
+- **Waves:** `WaveManager` is a small state machine. Enemy counts, scaling and the spawn table come from a `WaveSettings` ScriptableObject.
+- **Events:** systems talk through C# events (observer pattern). The wave text, lighting and music listen to `WaveStarted` and `WaveCompleted`, and `WaveManager` doesn't know about them.
+- **Enemies:** all types share `Enemy` and `Health`. Only movement changes, behind `IEnemyMovement` (strategy pattern).
+- **Object pooling:** bullets, coins and enemies are reused with `UnityEngine.Pool`. Enemies recalculate their stats from base values when they respawn, so an elite doesn't come back with double health.
+- **Upgrades:** each one is a ScriptableObject subclass of `UpgradeDefinition`. A shop is just a list of them, so the statue and the anvil run the same script.
+- **Interactables:** the stone and shops inherit from `BetweenWavesInteractable` and only implement `OnInteract` (template method).
+- **Game flow:** `GameManager` is a state machine that sets the time scale and switches input maps. `UIFactory` builds the menus from code.
+- **Dependencies:** no singletons or `Find` calls. References are set in the Inspector or passed through `Initialize`.
 
-**Enemies.** Zombies, slimes and ghosts all use the same `Enemy` and `Health` components. The only thing that changes is movement, which sits behind an `IEnemyMovement` interface. Zombies walk and jump over walls, slimes leap at you (a little state machine of its own) and ghosts fly through walls. A new enemy type is mostly a new movement script plus a prefab.
-
-**Object pooling.** Bullets, coins and enemies come from `UnityEngine.Pool` instead of being instantiated and destroyed, so nothing piles up for the garbage collector during a wave. Enemies were the tricky part, because a reused enemy keeps the state it died with. `Enemy` saves its base health, damage and coin count in `Awake` and recalculates them in `Initialize`. Without that, an elite zombie going back to the pool would come out as a normal zombie with double health. `EnemyPool` keeps one pool per enemy prefab, and anything that falls off the map is sent back through an `IDespawnable` interface instead of being destroyed.
-
-**Upgrades and shops.** Every upgrade is a ScriptableObject that inherits from `UpgradeDefinition` and implements its own `Apply`. Prices grow exponentially and there's no level cap. A shop is just a list of upgrades (`ShopCatalog`), so the statue and the anvil are the same script with different data. The stone and both shops share a base class, `BetweenWavesInteractable`, which blocks interaction during a wave; each one only fills in `OnInteract`.
-
-**Player.** Instead of one big Player script, the player is a set of small components: movement, aiming, shooting, health, wallet, upgrades and interaction. They talk through events. For example the audio plays the shot sound by listening to `PlayerShooting.Fired`.
-
-**Game flow and UI.** `GameManager` holds a `GameState` (main menu, playing, shopping, paused, game over). Changing state sets the time scale and switches the Input System between the Player and UI action maps. The menus are built from code by `UIFactory`, with the font, colours and sprites coming from a `UITheme` asset.
-
-**Dependencies.** There are no singletons and no `Find` calls. Scene objects are linked in the Inspector, and spawned objects get what they need through an `Initialize` method.
-
-**Unity features used.** Tilemaps with a Rule Tile, and a Composite Collider so the ground is a single collider. Cinemachine with a Confiner 2D to keep the camera inside the map. URP 2D lights for the day and night change. Parallax background layers. Animator parameters cached as hashes. Music crossfading between two audio sources. High scores and the volume setting are saved with PlayerPrefs, the scores as JSON. The build target is WebGL.
+Also uses Tilemaps with a Rule Tile, Cinemachine, URP 2D lights, the new Input System and PlayerPrefs with JSON for high scores. Built for WebGL.
 
 ## Running it
 
