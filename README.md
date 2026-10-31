@@ -4,7 +4,7 @@
 
 [Play it in the browser on itch.io](https://brahimux.itch.io/lastlight)
 
-A 2D wave-survival platformer made in Unity 6. You defend a village at night against zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
+A 2D wave-survival platformer made in Unity 6. You try to survive the night against waves of zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
 
 It started as the TileVania project from the GameDev.tv Unity 2D course. After finishing the course I kept going and turned it into a different game, mostly to practise structuring a project properly.
 
