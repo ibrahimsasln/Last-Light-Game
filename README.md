@@ -51,8 +51,6 @@ Also uses Tilemaps with a Rule Tile, Cinemachine, URP 2D lights, the new Input S
 
 ## Running it
 
-Open the project with Unity 6000.3 and open `Assets/Scenes/Level1.unity`.
-
 The art and audio packs are not included in this repository because their licenses don't allow redistribution. To run the project you need to download them (links below) and put them in `Assets/ThirdParty/`.
 
 ## Credits
