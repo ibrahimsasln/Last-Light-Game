@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     public class HighScoreTable
     {

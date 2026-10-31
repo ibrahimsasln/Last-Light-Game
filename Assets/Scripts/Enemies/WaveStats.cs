@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tilemania.Enemies
+namespace LastLight.Enemies
 {
     public struct WaveStats
     {

@@ -1,4 +1,4 @@
-namespace Tilemania.Interaction
+namespace LastLight.Interaction
 {
     public interface IInteractable
     {

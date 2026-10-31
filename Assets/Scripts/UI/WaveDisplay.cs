@@ -1,8 +1,8 @@
 using TMPro;
 using UnityEngine;
-using Tilemania.Managers;
+using LastLight.Managers;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public class WaveDisplay : MonoBehaviour
     {

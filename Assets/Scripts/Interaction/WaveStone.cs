@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Tilemania.Interaction
+namespace LastLight.Interaction
 {
     public class WaveStone : BetweenWavesInteractable
     {

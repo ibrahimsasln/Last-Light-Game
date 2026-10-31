@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "ShopCatalog", menuName = "Tilemania/Shop Catalog")]
+    [CreateAssetMenu(fileName = "ShopCatalog", menuName = "Last Light/Shop Catalog")]
     public class ShopCatalog : ScriptableObject
     {
         [SerializeField] string shopName;

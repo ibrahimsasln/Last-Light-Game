@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "DamageUpgrade", menuName = "Tilemania/Upgrades/Damage")]
+    [CreateAssetMenu(fileName = "DamageUpgrade", menuName = "Last Light/Upgrades/Damage")]
     public class DamageUpgrade : UpgradeDefinition
     {
         [SerializeField, Min(1)] int amount = 1;

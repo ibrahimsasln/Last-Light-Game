@@ -1,7 +1,7 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
     public abstract class UpgradeDefinition : ScriptableObject
     {

@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "HealUpgrade", menuName = "Tilemania/Upgrades/Heal")]
+    [CreateAssetMenu(fileName = "HealUpgrade", menuName = "Last Light/Upgrades/Heal")]
     public class HealUpgrade : UpgradeDefinition
     {
         public override bool CanApply(PlayerUpgrades player)

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Tilemania.Enemies;
+using LastLight.Enemies;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
-    [CreateAssetMenu(fileName = "WaveSettings", menuName = "Tilemania/Wave Settings")]
+    [CreateAssetMenu(fileName = "WaveSettings", menuName = "Last Light/Wave Settings")]
     public class WaveSettings : ScriptableObject
     {
         [Header("Enemies")]

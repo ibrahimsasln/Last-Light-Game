@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Tilemania.Audio
+namespace LastLight.Audio
 {
-    [CreateAssetMenu(fileName = "AudioLibrary", menuName = "Tilemania/Audio Library")]
+    [CreateAssetMenu(fileName = "AudioLibrary", menuName = "Last Light/Audio Library")]
     public class AudioLibrary : ScriptableObject
     {
         [Header("Music")]

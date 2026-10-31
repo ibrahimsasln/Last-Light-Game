@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Tilemania.Combat;
-using Tilemania.Interaction;
+using LastLight.Combat;
+using LastLight.Interaction;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerInteraction : MonoBehaviour
     {

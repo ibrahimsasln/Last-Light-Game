@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public class MenuWindow
     {

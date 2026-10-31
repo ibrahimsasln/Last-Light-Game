@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace Tilemania.Enemies
+namespace LastLight.Enemies
 {
     public class EnemyPool
     {

@@ -3,13 +3,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using Tilemania.Audio;
-using Tilemania.Combat;
-using Tilemania.Player;
-using Tilemania.UI;
-using Tilemania.Upgrades;
+using LastLight.Audio;
+using LastLight.Combat;
+using LastLight.Player;
+using LastLight.UI;
+using LastLight.Upgrades;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     public class GameManager : MonoBehaviour
     {

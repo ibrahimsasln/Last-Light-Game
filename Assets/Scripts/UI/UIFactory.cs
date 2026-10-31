@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public static class UIFactory
     {

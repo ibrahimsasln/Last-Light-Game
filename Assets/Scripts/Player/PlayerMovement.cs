@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Tilemania.Combat;
-using Tilemania.Core;
+using LastLight.Combat;
+using LastLight.Core;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerMovement : MonoBehaviour
     {

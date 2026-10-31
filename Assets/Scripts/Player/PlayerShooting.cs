@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Pool;
-using Tilemania.Combat;
+using LastLight.Combat;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerShooting : MonoBehaviour
     {

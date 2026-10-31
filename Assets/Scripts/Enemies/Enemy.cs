@@ -1,11 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.Pool;
-using Tilemania.Coin;
-using Tilemania.Combat;
-using Tilemania.Core;
+using LastLight.Coin;
+using LastLight.Combat;
+using LastLight.Core;
 
-namespace Tilemania.Enemies
+namespace LastLight.Enemies
 {
     public class Enemy : MonoBehaviour
     {

@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "DodgeUpgrade", menuName = "Tilemania/Upgrades/Dodge")]
+    [CreateAssetMenu(fileName = "DodgeUpgrade", menuName = "Last Light/Upgrades/Dodge")]
     public class DodgeUpgrade : UpgradeDefinition
     {
         public override void Apply(PlayerUpgrades player)

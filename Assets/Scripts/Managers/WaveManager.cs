@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Tilemania.Coin;
-using Tilemania.Combat;
-using Tilemania.Enemies;
+using LastLight.Coin;
+using LastLight.Combat;
+using LastLight.Enemies;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     public class WaveManager : MonoBehaviour
     {

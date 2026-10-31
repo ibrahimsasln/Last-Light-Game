@@ -1,8 +1,8 @@
 using UnityEngine;
-using Tilemania.Managers;
-using Tilemania.Upgrades;
+using LastLight.Managers;
+using LastLight.Upgrades;
 
-namespace Tilemania.Interaction
+namespace LastLight.Interaction
 {
     public class UpgradeShop : BetweenWavesInteractable
     {

@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using Tilemania.Enemies;
+using LastLight.Enemies;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     [Serializable]
     public class EnemySpawnEntry

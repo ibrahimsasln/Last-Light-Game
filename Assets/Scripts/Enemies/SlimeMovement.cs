@@ -1,8 +1,8 @@
 using UnityEngine;
-using Tilemania.Combat;
-using Tilemania.Core;
+using LastLight.Combat;
+using LastLight.Core;
 
-namespace Tilemania.Enemies
+namespace LastLight.Enemies
 {
     public class SlimeMovement : MonoBehaviour, IEnemyMovement
     {

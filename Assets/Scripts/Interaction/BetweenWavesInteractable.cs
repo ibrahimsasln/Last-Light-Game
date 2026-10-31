@@ -1,7 +1,7 @@
 using UnityEngine;
-using Tilemania.Managers;
+using LastLight.Managers;
 
-namespace Tilemania.Interaction
+namespace LastLight.Interaction
 {
     public abstract class BetweenWavesInteractable : MonoBehaviour, IInteractable
     {

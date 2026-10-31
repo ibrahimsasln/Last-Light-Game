@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Tilemania.Managers;
-using Tilemania.Player;
-using Tilemania.Upgrades;
+using LastLight.Managers;
+using LastLight.Player;
+using LastLight.Upgrades;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public class UIManager : MonoBehaviour
     {

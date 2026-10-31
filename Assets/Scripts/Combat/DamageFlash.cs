@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Tilemania.Combat
+namespace LastLight.Combat
 {
     public class DamageFlash : MonoBehaviour
     {

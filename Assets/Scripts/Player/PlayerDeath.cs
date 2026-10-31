@@ -1,7 +1,7 @@
 using UnityEngine;
-using Tilemania.Combat;
+using LastLight.Combat;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerDeath : MonoBehaviour
     {

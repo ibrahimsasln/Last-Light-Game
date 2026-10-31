@@ -1,8 +1,8 @@
 using TMPro;
 using UnityEngine;
-using Tilemania.Combat;
+using LastLight.Combat;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public class HealthDisplay : MonoBehaviour
     {

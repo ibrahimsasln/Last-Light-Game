@@ -1,8 +1,8 @@
 using TMPro;
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
     public class CoinDisplay : MonoBehaviour
     {

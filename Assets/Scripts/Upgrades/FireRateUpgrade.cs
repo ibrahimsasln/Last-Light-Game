@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "FireRateUpgrade", menuName = "Tilemania/Upgrades/Fire Rate")]
+    [CreateAssetMenu(fileName = "FireRateUpgrade", menuName = "Last Light/Upgrades/Fire Rate")]
     public class FireRateUpgrade : UpgradeDefinition
     {
         [SerializeField, Range(0.1f, 1f)] float cooldownMultiplier = 0.85f;

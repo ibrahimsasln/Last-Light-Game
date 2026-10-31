@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using Tilemania.Core;
-using Tilemania.Player;
+using LastLight.Core;
+using LastLight.Player;
 
-namespace Tilemania.Coin
+namespace LastLight.Coin
 {
     public class CoinPickup : MonoBehaviour, IDespawnable
     {

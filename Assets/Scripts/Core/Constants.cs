@@ -1,4 +1,4 @@
-namespace Tilemania.Core
+namespace LastLight.Core
 {
     public static class Tags
     {

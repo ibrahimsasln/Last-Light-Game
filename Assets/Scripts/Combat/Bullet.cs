@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.Pool;
-using Tilemania.Core;
+using LastLight.Core;
 
-namespace Tilemania.Combat
+namespace LastLight.Combat
 {
     public class Bullet : MonoBehaviour, IDespawnable
     {

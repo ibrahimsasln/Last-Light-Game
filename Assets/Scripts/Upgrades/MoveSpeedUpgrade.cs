@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "MoveSpeedUpgrade", menuName = "Tilemania/Upgrades/Move Speed")]
+    [CreateAssetMenu(fileName = "MoveSpeedUpgrade", menuName = "Last Light/Upgrades/Move Speed")]
     public class MoveSpeedUpgrade : UpgradeDefinition
     {
         [SerializeField] float speedBonus = 0.1f;

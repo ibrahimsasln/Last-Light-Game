@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-using Tilemania.Managers;
+using LastLight.Managers;
 
-namespace Tilemania.Coin
+namespace LastLight.Coin
 {
     public class CoinDropper : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using UnityEngine;
-using Tilemania.Combat;
-using Tilemania.Core;
+using LastLight.Combat;
+using LastLight.Core;
 
-namespace Tilemania.Environment
+namespace LastLight.Environment
 {
     public class KillZone : MonoBehaviour
     {

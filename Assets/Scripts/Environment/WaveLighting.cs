@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
-using Tilemania.Managers;
+using LastLight.Managers;
 
-namespace Tilemania.Environment
+namespace LastLight.Environment
 {
     public class WaveLighting : MonoBehaviour
     {

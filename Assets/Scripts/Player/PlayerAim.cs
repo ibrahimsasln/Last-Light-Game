@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Tilemania.Combat;
+using LastLight.Combat;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerAim : MonoBehaviour
     {

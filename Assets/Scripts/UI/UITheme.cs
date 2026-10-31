@@ -1,9 +1,9 @@
 using TMPro;
 using UnityEngine;
 
-namespace Tilemania.UI
+namespace LastLight.UI
 {
-    [CreateAssetMenu(fileName = "UITheme", menuName = "Tilemania/UI Theme")]
+    [CreateAssetMenu(fileName = "UITheme", menuName = "Last Light/UI Theme")]
     public class UITheme : ScriptableObject
     {
         [Header("Font")]

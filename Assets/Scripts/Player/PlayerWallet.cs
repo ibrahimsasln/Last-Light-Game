@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerWallet : MonoBehaviour
     {

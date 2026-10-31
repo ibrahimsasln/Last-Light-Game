@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Tilemania.Combat;
-using Tilemania.Upgrades;
+using LastLight.Combat;
+using LastLight.Upgrades;
 
-namespace Tilemania.Player
+namespace LastLight.Player
 {
     public class PlayerUpgrades : MonoBehaviour
     {

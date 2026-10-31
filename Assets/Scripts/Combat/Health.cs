@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Tilemania.Combat
+namespace LastLight.Combat
 {
     public class Health : MonoBehaviour
     {

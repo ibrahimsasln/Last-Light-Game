@@ -1,7 +1,7 @@
 using UnityEngine;
-using Tilemania.Combat;
+using LastLight.Combat;
 
-namespace Tilemania.Enemies
+namespace LastLight.Enemies
 {
     public class FlyingMovement : MonoBehaviour, IEnemyMovement
     {

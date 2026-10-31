@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "MultiShotUpgrade", menuName = "Tilemania/Upgrades/Multi Shot")]
+    [CreateAssetMenu(fileName = "MultiShotUpgrade", menuName = "Last Light/Upgrades/Multi Shot")]
     public class MultiShotUpgrade : UpgradeDefinition
     {
         [SerializeField, Min(1)] int extraProjectiles = 1;

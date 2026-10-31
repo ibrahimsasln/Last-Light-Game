@@ -1,4 +1,4 @@
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     public enum GameState
     {

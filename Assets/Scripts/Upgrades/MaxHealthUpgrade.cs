@@ -1,9 +1,9 @@
 using UnityEngine;
-using Tilemania.Player;
+using LastLight.Player;
 
-namespace Tilemania.Upgrades
+namespace LastLight.Upgrades
 {
-    [CreateAssetMenu(fileName = "MaxHealthUpgrade", menuName = "Tilemania/Upgrades/Max Health")]
+    [CreateAssetMenu(fileName = "MaxHealthUpgrade", menuName = "Last Light/Upgrades/Max Health")]
     public class MaxHealthUpgrade : UpgradeDefinition
     {
         [SerializeField, Min(1)] int amount = 1;

@@ -1,6 +1,6 @@
 using System;
 
-namespace Tilemania.Managers
+namespace LastLight.Managers
 {
     [Serializable]
     public struct HighScoreEntry

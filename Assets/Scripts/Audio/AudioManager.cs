@@ -1,13 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using Tilemania.Combat;
-using Tilemania.Enemies;
-using Tilemania.Managers;
-using Tilemania.Player;
-using Tilemania.UI;
-using Tilemania.Upgrades;
+using LastLight.Combat;
+using LastLight.Enemies;
+using LastLight.Managers;
+using LastLight.Player;
+using LastLight.UI;
+using LastLight.Upgrades;
 
-namespace Tilemania.Audio
+namespace LastLight.Audio
 {
     public class AudioManager : MonoBehaviour
     {
