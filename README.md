@@ -6,8 +6,6 @@
 
 A 2D wave-survival platformer made in Unity 6. You try to survive the night against waves of zombies, slimes and ghosts, and spend the coins they drop on upgrades between waves.
 
-It started as the TileVania project from the GameDev.tv Unity 2D course. After finishing the course I kept going and turned it into a different game, mostly to practise structuring a project properly.
-
 ## How it plays
 
 You start a wave by touching the magic stone. The sky gets darker, the music changes and enemies start coming in from the edges of the map. When the last one dies the light comes back, the leftover coins fly to you and you can visit the two shops:
